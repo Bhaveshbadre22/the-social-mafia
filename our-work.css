@@ -614,36 +614,85 @@ position: relative; /* VERY IMPORTANT */
 .faq-column h2 {
     font-size: 40px;
     font-weight: 500;
-    color: var(--pink);
+    color: var(--color-pink);
     margin-bottom: 30px;
     position: relative;
     z-index: 1;
+    font-family: 'Manrope';
     line-height: 100%;
     letter-spacing: 0%;
-
+    padding-left: 10px;
 }
 
+/* MODIFIED: The .faq-item is now just a container. */
 .faq-item {
+    margin: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    overflow: hidden; /* Important: keeps content from spilling out during animation */
+}
+
+/* NEW: This div now holds your flex properties. */
+.faq-question {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 14px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 14px 0; /* Your vertical padding */
     cursor: pointer;
 }
 
-.faq-item p {
+/* MODIFIED: Selector changed from .faq-item p */
+.faq-question p {
+    text-align: left;
     font-size: 18px;
     font-weight: 300;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    padding-right: 20px;
+    padding-right: 15px;
     color: var(--white);
+    margin: 0;
+    padding-left: 10px; /* Matched your h2 padding */
 }
 
-.faq-item i {
+/* MODIFIED: Selector changed from .faq-item i */
+.faq-question i {
     font-size: 18px;
     color: var(--white);
+    flex-shrink: 0; /* Keeps icon from squishing */
+    padding-right: 10px; /* Added padding for spacing */
+    transition: transform 0.3s ease; /* Animate the icon rotation */
+}
+
+/* --- NEW CSS FOR THE FUNCTIONALITY --- */
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease-out;
+}
+
+.faq-answer p {
+    font-family: 'Manrope';
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85); /* Slightly dimmer for contrast */
+    margin: 0;
+    padding: 5px 10px 25px 10px; /* Top, Right, Bottom, Left */
+}
+
+/* --- Active State (When FAQ is open) --- */
+
+/* When .faq-item has class 'active', the answer becomes visible */
+.faq-item.active .faq-answer {
+    max-height: 300px; /* Adjust if your answers are very long */
+}
+
+/* Rotate the icon when the FAQ is open */
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+/* Optional: Make the bottom border bolder when open */
+.faq-item.active {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* --- Collaborate Column --- */
@@ -769,16 +818,14 @@ position: relative; /* VERY IMPORTANT */
 .ad-card h3 {
     font-size: 32px;
     font-weight: 700;
-    line-height: 33px;
-    margin-bottom: 20px;
     letter-spacing: 0%;
     margin-top: 0px;
 
     font-family: 'Urbanist';
     font-weight: 700;
     font-size: 31.97px;
-    line-height: 33.3px;
     letter-spacing: 0%;
+    margin-bottom: 10px;
 
 }
 
@@ -875,9 +922,10 @@ position: relative; /* VERY IMPORTANT */
         font-size: 28px;
     }
 
-    .ad-image-container {
-        bottom: -20px;
-        right: -40px;
+   .ad-image-container {
+        top: 0px;
+        left: 30%;
+        width: 70%;
     }
 }
 
@@ -1283,11 +1331,10 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     
     .faq-item {
         padding: 1rem;
-        margin-bottom: 1rem;
     }
     
     .faq-item p {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
     
     .contact-info p {
@@ -1330,12 +1377,11 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     .ad-card {
         max-width: 300px;
         margin: 0 auto;
-        padding: 1.5rem;
+        text-align: left;
     }
     
     .ad-card h3 {
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
+        font-size: 1.0rem;
     }
     
     .ad-image-container {
@@ -1401,9 +1447,6 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
         font-size: 1.3rem;
     }
     
-    .faq-item p {
-        font-size: 0.8rem;
-    }
     
     .contact-info p {
         font-size: 0.8rem;
