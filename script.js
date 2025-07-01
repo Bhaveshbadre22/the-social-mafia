@@ -106,6 +106,30 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+// Accordion Style JavaScript
+document.addEventListener('DOMContentLoaded', () => {
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(itemToOpen => {
+        const question = itemToOpen.querySelector('.faq-question');
+
+        question.addEventListener('click', () => {
+            // Check if the clicked item is already active
+            const isAlreadyActive = itemToOpen.classList.contains('active');
+
+            // First, close all other items
+            faqItems.forEach(itemToClose => {
+                itemToClose.classList.remove('active');
+            });
+
+            // If the clicked item was not active, open it
+            if (!isAlreadyActive) {
+                itemToOpen.classList.add('active');
+            }
+        });
+    });
+});
+
 
 
 
