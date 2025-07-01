@@ -71,50 +71,63 @@
   /* ------------------- */
   
   header {
-    padding: 2rem 2rem 0 2rem;
-  }
-  
-  nav {
-    font-weight: 300;
-    font-size: 18px;
-    max-width: 1023px;
     width: 100%;
+    padding-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+nav {
+    width: 100%;
+    max-width: 1023px;
     height: 70px;
-    margin: 0 auto;
-    padding: 0 0.7rem;
+    padding: 0 1rem;
     background-color: var(--color-nav-bg);
     border-radius: 50px;
+
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* center all items */
     align-items: center;
-  }
-  
-  .logo img {
-    height: 100px;
-    width: 100px;
-  }
-  
-  .nav-links {
+    gap: 2rem; /* spacing between logo, links, and button */
+    flex-wrap: wrap; /* allow wrapping on smaller screens */
+}
+
+.logo img {
+    height: 70px;
+    width: auto;
+    display: block;
+}
+
+/* Make sure logo is vertically aligned */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links {
     display: flex;
     list-style: none;
-    gap: 3rem;
-  }
-  
-  .nav-links a {
+    gap: 2.5rem;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links a {
     text-decoration: none;
     color: var(--color-white);
     font-size: 1rem;
     padding: 0.5rem 0;
     transition: color 0.3s ease;
-  }
-  
-  .nav-links a:hover,
-  .nav-links a.active {
+}
+
+.nav-links a:hover,
+.nav-links a.active {
     color: var(--color-pink);
     font-weight: 600;
-  }
-  
-  .btn-primary {
+}
+
+.btn-primary {
     background: var(--gradient);
     color: var(--color-white);
     text-decoration: none;
@@ -124,7 +137,11 @@
     font-size: 1rem;
     white-space: nowrap;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
   
   .btn-primary:hover {
     transform: scale(1.05);
@@ -261,7 +278,7 @@ text-align: center;
     /* Gradient Border Trick */
     background: linear-gradient(var(--color-nav-bg), var(--color-nav-bg)) padding-box,
                 linear-gradient(to right, #FFC402, #F20C89) border-box;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     background-origin: border-box;
     background-clip: padding-box, border-box;
 
@@ -1228,10 +1245,10 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     .subheading {
         font-size: 1rem;
         line-height: 1.4;
-        margin-bottom: 40px;
+        margin-bottom: 80px;
         white-space: normal;
         overflow: visible;
-        margin-top: 130px;
+        margin-top: 0px;
     }
     
     .client-logo {
@@ -1417,12 +1434,12 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     
     .client-logo {
         width: 150px;
-        top: 30px;
+        top: 80px;
     }
     
     .gradient-blur {
         max-width: 800px;
-        top: 150px;
+        top: 190px;
     }
     
     .description-text {

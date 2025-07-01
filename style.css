@@ -50,36 +50,76 @@ body {
 }
 
 /* --- Client Logos Section --- */
+/* --- CONTAINER: Based on your .client-logos style --- */
 .client-logos {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 100px; /* Space between logos */
-    padding: 60px 20px;
     background-color: #0e0e0e;
-    margin-bottom: 60px;
-    border-top-left-radius: 65px ;  
-    border-top-right-radius: 65px ;  
+    border-top-left-radius: 65px;
+    border-top-right-radius: 65px;
+    padding: 40px 0 0px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.client-logos::before, .client-logos::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 200px;
+    z-index: 2;
+}
+.client-logos::before {
+    left: 0;
+    background: linear-gradient(to left, rgba(14, 14, 14, 0), #0e0e0e);
+}
+.client-logos::after {
+    right: 0;
+    background: linear-gradient(to right, rgba(14, 14, 14, 0), #0e0e0e);
+}
+
+.logo-slide-track {
+    display: flex;
+    align-items: center;
+    animation: scroll 25s linear infinite;
+    width: calc(300px * 8); /* 300px per slide * 8 total slides */
+}
+.client-logos:hover .logo-slide-track {
+    animation-play-state: paused;
+}
+
+.slide {
+    width: 220px;
+    display: grid;
+    place-items: center;
 }
 
 .client-logo {
-    height: 120px; /* Base height for all logos */
+    height: 120px;
     width: auto;
     object-fit: contain;
     filter: grayscale(100%) brightness(0.8);
     transition: all 0.3s ease;
+    cursor: pointer;
 }
-
-
-/* Specific logo adjustments */
+.client-logo:hover {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.1);
+}
 .client-logo.aq {
-    height: 130px; /* Slightly larger for Aqualogica */
+    height: 130px;
 }
-
 .client-logo.hm {
-    height: 100px; /* Slightly larger for H&M */
+    height: 100px;
 }
 
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-300px * 4)); /* -300px per slide * 4 original slides */
+    }
+}
 
 
 /* --- Header and Navigation --- */
@@ -101,9 +141,14 @@ body {
 }
 
 .main-nav {
+    display: flex;
+    justify-content: space-between; /* center all items */
+    align-items: center;
+    gap: 2rem; /* spacing between logo, links, and button */
+    flex-wrap: wrap; /* allow wrapping on smaller screens */
     width: 100%;
     max-width: 1023px;
-    height: 70px;
+    height: 60px;
     padding: 0 0.7rem 0 0.5rem;
     background-color: #232323; /* from --color-nav-bg */
     border-radius: 50px;
@@ -113,9 +158,10 @@ body {
 }
 
 .main-nav .logo img {
-    height: 100px;
-    width: 100px;
-    top: 20px;
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    top: 22px;
     /* Vertically align the oversized logo nicely */
     transform: translateY(-2px);
 }
@@ -147,7 +193,7 @@ body {
     background: linear-gradient(90deg, #FFC402, #F20C89); /* from --gradient */
     color: #FFFFFF;
     text-decoration: none;
-    padding: 0.8rem 1.8rem;
+    padding: 0.6rem 1.6rem;
     border-radius: 28px;
     font-weight: 600;
     font-size: 1rem;
@@ -243,6 +289,10 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
         display: none;
     }
 
+    .main-nav .logo img {
+        top: 8px;
+    }
+
     /* Show mobile hamburger */
     .mobile-menu-toggle {
         display: flex;
@@ -253,7 +303,7 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
 .hero-section {
     position: relative;
     height: 800px;
-    min-height: 500px; /* Ensure content is visible on shorter screens */
+    min-height: 480px; /* Ensure content is visible on shorter screens */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -293,7 +343,7 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
 /* --- Statue Image --- */
 .statue-container {
     position: absolute;
-    top: 55%;
+    top: 62%;
     left: 35%;
     transform: translate(-50%, -50%);
     width: 33vw;
@@ -302,9 +352,9 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
 }
 
 .statue-image {
+    /* position: absolute; */
     width: 280%;
     height: 300%;
-    display: block;
 }
 
 /* --- Callout Bubbles --- */
@@ -338,8 +388,8 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     width: 100%;
     height: 21.89px;
     max-width: 328.89px;
-    top: 53%;
-    left: 18%;      
+    top: 60%;
+    left: 20%;      
 }
 
 .callout-2 {
@@ -347,7 +397,7 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     border-bottom-left-radius: 20.89px;
     border-bottom-right-radius: 20.89px;
     height: 21.89px;
-    top: 43%;
+    top: 50%;
     right: 27%;
     max-width: 368.89px;
     width: 100%;
@@ -359,7 +409,7 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     border-bottom-right-radius: 20.89px;
     max-height: 21.89px;
     height: 100%;
-    bottom: 17%;
+    bottom: 10%;
     left: 24%;
     max-width: 328.89px;
     width: 100%;
@@ -370,7 +420,7 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     border-bottom-left-radius: 20.89px;
     border-bottom-right-radius: 20.89px;
     height: 21.89px;
-    bottom: 25%;
+    bottom: 18%;
     right: 24%;
     max-width: 470px;
     width: 100%;
@@ -380,7 +430,7 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
 /* ============================================== */
 /* === NEW: TESTIMONIALS SECTION STYLES START === */
 /* ============================================== */
-
+/* --- Main Containers & Wrappers (Unchanged) --- */
 .test-container {
     background-color: #0e0e0e;
     border-top-right-radius: 65.65px;
@@ -396,8 +446,7 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     width: 100%;
 }
 
-/* --- Logo Ticker --- */
-
+/* --- Logo Ticker (Unchanged) --- */
 .logo-ticker-wrapper {
     padding-top: 60px;
 }
@@ -418,14 +467,14 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
 
 .logo-ticker img {
     height: 50px;
-    width: auto;
+    width: 80px;
     flex-shrink: 0;
     object-fit: contain;
 }
 
 .logo-image {
     height: 50px;
-    width: auto;
+    width: 60px;
     margin: 0;
 }
 
@@ -438,7 +487,7 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
 }
 
 
-/* --- Section Heading --- */
+/* --- Section Heading (Unchanged) --- */
 .section-heading {
     font-family: 'Playfair Display', serif;
     font-weight: 500;
@@ -450,54 +499,77 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     margin-bottom: 30px;
 }
 
-/* --- Testimonial Cards --- */
+/* --- Cards Container (Unchanged) --- */
 .cards-container {
     display: flex;
     justify-content: center;
     gap: 40px;
     flex-wrap: wrap;
     width: 100%;
-    max-width: 1240px; /* Container for cards */
-    margin: 0 auto;      /* center the container */
-
+    max-width: 1240px;
+    margin: 0 auto;
 }
+
+
+/* 
+=====================================================
+--- UPDATED TESTIMONIAL CARD STYLES START HERE ---
+=====================================================
+*/
 
 .testimonial-card {
     position: relative;
     width: 380px;
     height: 480px;
     border-radius: 20px;
-    overflow: hidden;
-    color: #FFFFFF;
+    overflow: hidden; /* Crucial for border-radius and containing elements */
+    color: #FFFFFF; 
     flex-shrink: 0;
-    background-color: #0e0e0e;
+    background-color: #0e0e0e; /* Fallback color */
+    margin-bottom: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* Added a subtle shadow */
 }
 
-.testimonial-card img {
+.testimonial-card > img { /* Target the direct child image */
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
+    object-position: center;
+    transition: transform 0.4s ease; /* Smooth zoom on hover */
+}
+
+/* Optional: Add slight zoom on hover for a dynamic feel */
+.testimonial-card:hover > img {
+    transform: scale(1.05);
 }
 
 img.bw {
     filter: grayscale(100%);
 }
 
+/* --- The Glassmorphism Overlay (The biggest change) --- */
 .card-content-overlay {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 24px;
-    background: linear-gradient(180deg, rgba(27, 27, 27, 0) 0%, rgba(27, 27, 27, 0.8) 40%, #1B1B1B 100%);
+    bottom: 0px; /* Position inset from the card edges */
+    left: 0px;
+    width:91%;
+    max-width: 350px;
+    /* The Glassmorphism Effect */
+    background: rgba(30, 30, 30, 0.2); /* Semi-transparent background */
+    -webkit-backdrop-filter: blur(12px); /* Blur for Safari */
+    backdrop-filter: blur(12px); /* The main blur effect */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+    
+    border-radius: 16px; /* Rounded corners for the overlay itself */
+    padding: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 12px; /* Adjusted spacing */
 }
 
 .card-title {
@@ -505,27 +577,33 @@ img.bw {
     font-weight: 600;
     font-size: 26px;
     margin: 0;
+    line-height: 1.2;
 }
 
 .card-tag {
     font-family: 'Manrope', sans-serif;
     font-size: 14px;
-    font-weight: 600;
-    padding: 6px 16px;
-    border-radius: 28px;
+    font-weight: 500; /* Adjusted weight for clarity */
+    padding: 7px 14px; /* Adjusted padding for pill shape */
+    border-radius: 50px; /* Makes the tag a pill shape */
     color: #FFFFFF;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
-.tag-orange {   background: linear-gradient(to right, #FFC402, #F20C89); }
-.tag-pink {   background: linear-gradient(to right, #FFC402, #F20C89); }
+/* Updated Gradient for the tags */
+.tag-orange,
+.tag-pink {
+    background: linear-gradient(90deg, #FB8A2C, #F20C89);
+}
 
 .card-text {
     font-family: 'Manrope', sans-serif;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 1.5;
+    font-weight: 400; /* Increased weight for readability */
+    font-size: 15px;  /* Slightly smaller to match target */
+    line-height: 1.6; /* Increased for better readability */
     margin: 0;
+    color: rgba(255, 255, 255, 0.9); /* Softer white */
 }
 
 /* ============================================ */
@@ -568,7 +646,7 @@ img.bw {
     position: relative;
     width: 350px;
     box-sizing: border-box;
-    height: 376px; /* match mockup */
+    height: auto; /* match mockup */
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 20px;
     padding: 32px 28px;
@@ -608,16 +686,26 @@ img.bw {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-align: left;
 }
 
 .gradient-dot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     display: inline-block;
-    width: 24px;
-    height: 24px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
     background: linear-gradient(135deg, #FFC402, #F20C89);
     flex-shrink: 0;
+    padding: 2px;
     margin-left: 8px;
+}
+
+.gradient-dot img {
+    justify-self: center;
+    align-self: center;
 }
 
 .service-card hr {
@@ -672,7 +760,7 @@ img.bw {
     border-radius: 20px;
     overflow: hidden;
     width: 100%;
-    height: 320px;
+    height: 380px;
     color: #FFFFFF; /* ensure link text white */
 }
 
@@ -737,10 +825,20 @@ img.bw {
     opacity: 0.9;
 }
 
+.arrow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    background-color: white;
+    border-radius: 50%;
+}
+
 .work-arrow img {
-    width: 40px;
-    height: 40px;
-    filter: brightness(1);
+    width: 20px;
+    height: 20px;
+    filter: brightness(0);
 }
 
 .view-all-btn {
@@ -752,7 +850,7 @@ img.bw {
     font-weight: 500;
     color: #FFFFFF;
     background: transparent;
-    padding: 12px 48px;
+    padding: 12px 30px;
     border-radius: 28px;
     text-decoration: none;
     z-index: 1;
@@ -814,7 +912,7 @@ img.bw {
   width: 100%;
   max-width: 365px;
   min-width: 270px;
-  height: 391px;
+  height: auto;
   border-radius: 20px;
   overflow: hidden;
   padding: 80px 32px 40px;
@@ -876,7 +974,7 @@ img.bw {
 
 .card-vector-1 {
     position: absolute;
-    top: -10%;
+    top: -40%;
     left: -20px;
     width: 120px;
     height: 600px;
@@ -888,7 +986,7 @@ img.bw {
 
 .card-vector-2 {
     position: absolute;
-    top: -10%;
+    top: -40%;
     right: -20px;
     width: 120px;
     height: 600px;
@@ -1001,7 +1099,7 @@ img.bw {
     font-weight: 500;
     color: #FFFFFF;
     background: transparent;
-    padding: 12px 60px;
+    padding: 12px 30px;
     border-radius: 28px;
     text-decoration: none;
     position: relative;
@@ -1248,11 +1346,13 @@ img.bw {
     font-weight: 500;
     color: #BE9203;
     margin-bottom: 10px;
+    justify-self: center;
 }
 
 .social-icons {
     display: flex;
     gap: 10px;
+    justify-content: space-evenly;
 }
 
 .social-icons a {
@@ -1384,6 +1484,12 @@ img.bw {
         padding-top: 1em;
     }
 
+    .slide {
+        width: 150px;
+        display: grid;
+        place-items: center;
+    }
+
     .foot-wrapper {
         padding: 40px 15px;
         margin-right: 40px;
@@ -1427,7 +1533,7 @@ img.bw {
     }
 
     .ad-image-container {
-        top: 0px;
+        top: -60px;
         left: 30%;
         width: 70%;
     }
@@ -1584,7 +1690,7 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     /* --- Hero Section - Major Restructure for Mobile --- */
 /* --- Hero Section - Mobile Styles --- */
 .hero-section {
-  height: 400px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   padding: 0 0px 0px;
@@ -1593,14 +1699,13 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
 .hero-headline {
   position: static;
   transform: none;
-  font-size: 36px;
+  font-size: 30px;
   line-height: 1.1;
   order: 1;
-  margin-bottom: 30px;
 }
 
 .hero-headline .large-text {
-  font-size: 48px;
+  font-size: 42px;
 }
 
 .responsive-space {
@@ -1622,14 +1727,14 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
   width: 100%;
   max-width: 290px;
   height: auto;
-  top: 160px;
+  top: 140px;
   left: 12%;
 }
 
 .callouts-container {
   position: relative;
   width: 100%;
-  height: 300px; /* or adjust based on space around the statue */
+  height: 250px; /* or adjust based on space around the statue */
   order: 3;
 }
 
@@ -1638,21 +1743,21 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
   display: none;
 
   /* ✅ Text styling */
-  font-size: 10px;
+  font-size: 12px;
   text-align: center;
 
   /* ✅ Size and spacing */
   width: auto;
   max-width: 300px;
-  padding: 6px 10px;
+  padding: 4px 10px;
+  padding-bottom: 10px;
   border-radius: 28px;
   min-width: 200px;
 
-  /* ✅ Allow multi-line text to expand box height */
-  white-space: normal;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  line-height: 1.3;
+white-space: normal;
+overflow: hidden;
+text-overflow: ellipsis; /* Optional: adds "..." when text overflows */
+
 
   /* ✅ Ensure padding is inside the box, not affecting height calc */
   box-sizing: border-box;
@@ -1662,32 +1767,28 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
   transition: opacity 0.8s ease-in-out;
 
   /* ✅ Ensure height grows with content */
-  height: 40px;
+  height: 43px;
 }
 
-.callout-3,
-.callout-4 {
-  padding: 6px 10px !important;
+.callout-3 {
+  padding-bottom: 10px !important;
 }
 
 
 
     /* --- Client Logos --- */
     .client-logos {
-        gap: 30px 15px;
-        padding: 40px 15px;
         border-radius: 40px;
-        margin-bottom: 40px;
     }
-    .client-logo { height: 35px; }
-    .client-logo.aq { height: 40px; }
+    .client-logo { height: 100%; }
+    .client-logo.aq { height: 100px; }
     .client-logo.hm { height: 30px; }
 
     /* --- Testimonials --- */
     .cards-container {
         flex-direction: column;
         align-items: center;
-        gap: 30px;
+        gap: 0px;
         width: 100%;
         max-width: 460px;
     }
@@ -1806,11 +1907,11 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     
     .faq-column h2,
     .links-column h2 {
-        font-size: 1.3rem;
+        font-size: 2.1rem;
     }
     
     .faq-item p {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
     
     .contact-info p {
@@ -1818,7 +1919,7 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     }
     
     .main-links a {
-        font-size: 0.8rem;
+        font-size: 1.2rem;
     }
     
     

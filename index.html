@@ -31,7 +31,7 @@
 
         <!-- Desktop Navigation Links -->
         <ul class="nav-links">
-            <li><a href="our-work.html">Services</a></li>
+            <li><a href="our-work.html">Our work</a></li>
             <li><a href="careers.html">Careers</a></li>
             <li><a href="about-us.html">About us</a></li>
             <li><a href="contact.html">Contact</a></li>
@@ -54,14 +54,14 @@
         <a href="careers.html">Careers</a>
         <a href="about-us.html">About us</a>
         <a href="contact.html">Contact</a>
-        <a href="contact.html" class="btn-primary" class="active">Get in touch</a>
+        <!-- <a href="contact.html" class="btn-primary" class="active">Get in touch</a> -->
     </div>
 </header>
 
     <main class="hero-section">
         <h1 class="hero-headline">
             Your Brand <br>
-            Told in <span class="large-text"><i>100</i><span class="responsive-space"></span></span> Different Ways
+            Told in <span class="large-text"><i>100</i></span>  Different Ways
         </h1>
 
         <div class="statue-container">
@@ -93,15 +93,52 @@
         <section class="testimonials-section">
             <!-- Client Logos -->
             <div class="client-logos">
-                <img class="client-logo aq" src="./assets/aqua-bg.png" alt="Aqualogica">
-                <img class="client-logo hm" src="./assets/hnm-bg.png" alt="H&M">
-                <img class="client-logo aq" src="./assets/aqua-bg.png" alt="Aqualogica">
-                <img class="client-logo hm" src="./assets/hnm-bg.png" alt="H&M">
-                <img class="client-logo aq" src="./assets/aqua-bg.png" alt="Aqualogica">
-                <img class="client-logo hm" src="./assets/hnm-bg.png" alt="H&M">
-                <img class="client-logo aq" src="./assets/aqua-bg.png" alt="Aqualogica">
-                <img class="client-logo hm" src="./assets/hnm-bg.png" alt="H&M">
-            </div>
+    <!-- This new inner div is the track that will be animated -->
+    <div class="logo-slide-track">
+        <!-- SET 1: YOUR ORIGINAL LOGOS -->
+        <div class="slide">
+            <img class="client-logo aq" src="./assets/aqua-bg.png" alt="Aqualogica">
+        </div>
+        <div class="slide">
+            <img class="client-logo hm" src="./assets/hnm-bg.png" alt="H&M">
+        </div>
+        <div class="slide">
+            <img class="client-logo aq" src="./assets/aqua-bg.png" alt="Aqualogica">
+        </div>
+        <div class="slide">
+            <img class="client-logo hm" src="./assets/hnm-bg.png" alt="H&M">
+        </div>
+        
+        <!-- SET 2: THE DUPLICATED LOGOS (for seamless looping) -->
+        
+        <div class="slide">
+            <img class="client-logo aq" src="./assets/aqua-bg.png" alt="Aqualogica">
+        </div>
+        <div class="slide">
+            <img class="client-logo hm" src="./assets/hnm-bg.png" alt="H&M">
+        </div>
+        <div class="slide">
+            <img class="client-logo aq" src="./assets/aqua-bg.png" alt="Aqualogica">
+        </div>
+        <div class="slide">
+            <img class="client-logo hm" src="./assets/hnm-bg.png" alt="H&M">
+        </div>
+        
+        <div class="slide">
+            <img class="client-logo aq" src="./assets/aqua-bg.png" alt="Aqualogica">
+        </div>
+        <div class="slide">
+            <img class="client-logo hm" src="./assets/hnm-bg.png" alt="H&M">
+        </div>
+        <div class="slide">
+            <img class="client-logo aq" src="./assets/aqua-bg.png" alt="Aqualogica">
+        </div>
+        <div class="slide">
+            <img class="client-logo hm" src="./assets/hnm-bg.png" alt="H&M">
+        </div>
+        
+    </div>
+</div>
 
             <!-- Main Heading -->
             <h2 class="section-heading">What our clients say</h2>
@@ -110,17 +147,18 @@
             <div class="cards-container">
                 <!-- Card 1 -->
                 <div class="testimonial-card">
-                    <img src="https://images.pexels.com/photos/3771089/pexels-photo-3771089.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Portrait of Kshitija Whaval">
-                    <div class="card-content-overlay">
-                        <div class="card-header">
-                            <h3 class="card-title">Kshitija Whaval</h3>
-                            <span class="card-tag tag-orange">Lofi Co</span>
-                        </div>
-                        <p class="card-text">
-                            "We let TSM handle Digital Marketing for our clients and it has been great. We get good results and the team is very co-operative."
-                        </p>
-                    </div>
-                </div>
+        <img src="https://images.pexels.com/photos/3771045/pexels-photo-3771045.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Portrait of Kshitija Whaval">
+        <div class="card-content-overlay">
+            <div class="card-header">
+                <h3 class="card-title">Kshitija Whaval</h3>
+                <!-- The class for the tag has been updated to be more generic -->
+                <span class="card-tag tag-pink">Leifii Co</span>
+            </div>
+            <p class="card-text">
+                "We let TSM handle Digital Marketing for our clients and it has been great. We get good results and the team is very co-operative."
+            </p>
+        </div>
+    </div>
 
                 <!-- Card 2 -->
                 <div class="testimonial-card">
@@ -162,26 +200,40 @@
 
         <div class="services-cards">
             <div class="service-card">
-                <h3 class="service-title">Bulk Content<br>Creation <span class="gradient-dot"></span></h3>
+                <h3 class="service-title">Bulk Content<br>Creation 
+                    <div class="gradient-dot">
+
+                            <img src="assets/image 18.svg" alt="">
+
+                    </div>
+                </h3>
                 <hr>
                 <p class="service-text">
-                    Get 100 unique, high-quality content pieces from 100 different UGC creators, all aligned with your brand's voice and goals. We handle everything from sourcing to delivery, so you get diverse, authentic content at scale, effortlessly.
+                    Get 100 unique, high-quality content pieces from 100 different UGC creators, all aligned with your brand's voice and goals. 
                 </p>
             </div>
 
             <div class="service-card">
-                <h3 class="service-title">UGC Creator<br>Matching <span class="gradient-dot"></span></h3>
+                <h3 class="service-title">UGC Creator<br>Matching 
+                    <div class="gradient-dot">
+                        <img src="assets/image 17.svg" alt="">
+                    </div>
+                </h3>
                 <hr>
                 <p class="service-text">
-                    We connect you with UGC creators who truly align with your brand's identity. From tone and aesthetic to audience relevance, we ensure every collaboration feels natural, impactful, and on-point.
+                    We connect you with UGC creators who truly align with your brand's identity. From tone and aesthetic to audience relevance.
                 </p>
             </div>
 
             <div class="service-card">
-                <h3 class="service-title">UGC Campaigns<br>&amp; Coordination <span class="gradient-dot"></span></h3>
+                <h3 class="service-title">UGC Campaigns<br>&amp; Coordination 
+                    <div class="gradient-dot">
+                        <img src="assets/image 20.svg" alt="">
+                    </div>
+                </h3>
                 <hr>
                 <p class="service-text">
-                    We don't just run campaigns, we run them with purpose. From aligning creators with your goals to ensuring seamless execution, we turn your vision into scalable, content-rich reality.
+                    We don't just run campaigns, we run them with purpose. From aligning creators with your goals to ensuring seamless execution.s
                 </p>
             </div>
         </div>
@@ -205,7 +257,9 @@
                                 <span class="work-metric">1M Engagements</span>
                             </div>
                         </div>
-                        <span class="work-arrow"><img src="./assets/info-arrow.png" alt="arrow"></span>
+                        <div class="arrow-container">
+                            <span class="work-arrow"><img src="./assets/arrow-right.svg" alt="arrow"></span>
+                        </div>
                     </div>
                 </div>
             </a>
@@ -221,7 +275,9 @@
                                 <span class="work-metric">1M Engagements</span>
                             </div>
                         </div>
-                        <span class="work-arrow"><img src="./assets/info-arrow.png" alt="arrow"></span>
+                        <div class="arrow-container">
+                            <span class="work-arrow"><img src="./assets/arrow-right.svg" alt="arrow"></span>
+                        </div>
                     </div>
                 </div>
             </a>
@@ -237,7 +293,9 @@
                                 <span class="work-metric">1M Engagements</span>
                             </div>
                         </div>
-                        <span class="work-arrow"><img src="./assets/info-arrow.png" alt="arrow"></span>
+                        <div class="arrow-container">
+                            <span class="work-arrow"><img src="./assets/arrow-right.svg" alt="arrow"></span>
+                        </div>
                     </div>
                 </div>
             </a>
@@ -253,7 +311,9 @@
                                 <span class="work-metric">1M Engagements</span>
                             </div>
                         </div>
-                        <span class="work-arrow"><img src="./assets/info-arrow.png" alt="arrow"></span>
+                        <div class="arrow-container">
+                            <span class="work-arrow"><img src="./assets/arrow-right.svg" alt="arrow"></span>
+                        </div>
                     </div>
                 </div>
             </a>
@@ -277,14 +337,7 @@
         <img class="card-vector-1" src="assets/Vector 52.svg" alt="Decorative vector" />
         <h3 class="how-title">Strategy Meets Scale</h3>
         <p class="how-text">
-          We don't just send you content we engineer a brand moment. 100 creators, 
-          handpicked and briefed, all working together to make your product unforgettable 
-          across feeds, screens, and minds.We don't just send you content we engineer a 
-          brand moment. 100 creators, handpicked and briefed, all working together to make 
-          your product unforgettable across feeds, screens, and minds.We don't just send 
-          you content we engineer a brand moment. 100 creators, handpicked and briefed, 
-          all working together to make your product unforgettable across feeds, screens, 
-          and minds.
+          We don’t just send you content we engineer a brand moment. 100 creators, handpicked and briefed, all working together to make your product unforgettable across feeds, screens, and minds.
         </p>
         <img class="card-vector-2" src="assets/Vector 51.svg" alt="Decorative vector" />
       </div>
@@ -297,13 +350,7 @@
         <img class="card-vector-1" src="assets/Vector 52.svg" alt="Decorative vector" />
         <h3 class="how-title">100 Content Creators</h3>
         <p class="how-text">
-          Imagine briefing once and unlocking an army of storytellers who turn your 
-          message into 100 powerful UGC videos. No middle layers. No creator roulette. 
-          Just pure output.Imagine briefing once and unlocking an army of storytellers 
-          who turn your message into 100 powerful UGC videos. No middle layers. No 
-          Imagine briefing once and unlocking an army of storytellers who turn your 
-          message into 100 powerful UGC videos. No middle layers. No creator roulette. 
-          Just pure output.Imagine briefing once and unlocking an army of storytellers 
+          Imagine briefing once and unlocking an army of storytellers who turn your message into 100 powerful UGC videos. No middle layers. No creator roulette. Just pure output.
           
         </p>
         <img class="card-vector-2" src="assets/Vector 51.svg" alt="Decorative vector" />
@@ -317,13 +364,7 @@
         <img class="card-vector-1" src="assets/Vector 52.svg" alt="Decorative vector" />
         <h3 class="how-title">Professional &amp; Trust-Building</h3>
         <p class="how-text">
-          Imagine briefing once and unlocking an army of storytellers who turn your 
-          message into 100 powerful UGC videos. No middle layers. No creator roulette. 
-          Just pure output.Imagine briefing once and unlocking an army of storytellers 
-          who turn your message into 100 powerful UGC videos. No middle layers. No 
-          Imagine briefing once and unlocking an army of storytellers who turn your 
-          message into 100 powerful UGC videos. No middle layers. No creator roulette. 
-          Just pure output.Imagine briefing once and unlocking an army of storytellers 
+          Our exclusive network of vetted creators covers diverse niches, regions, languages, and content styles, giving your brand the flexibility and reach it needs to scale your brand.
         </p>
         <img class="card-vector-2" src="assets/Vector 51.svg" alt="Decorative vector" />
       </div>
