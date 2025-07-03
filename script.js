@@ -448,14 +448,13 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ====================================================== */
-    /* === UNIVERSAL ON-SCROLL FADE-IN ANIMATION ========== */
+    /* === UNIVERSAL ON-SCROLL FADE-IN ANIMATION (REVISED) == */
     /* ====================================================== */
 
-    const elementsToAnimate = document.querySelectorAll(
-        '.hero-headline, .statue-container, .callout, .logo-slide-track, .testimonial-card, .service-card, .work-card, .how-card-wrapper, .blog-card, .see-all-btn, .view-all-btn, .section-heading, .section-subheading'
-    );
+    // Helper function to set up and observe a group of elements
+    const setupObserver = (elements, isGroup = false) => {
+        if (!elements || elements.length === 0) return;
 
-    if (elementsToAnimate.length > 0) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -464,47 +463,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }, {
-            threshold: 0.1, // Trigger when 10% of the element is visible
-            rootMargin: "0px 0px -50px 0px" // Trigger animation a little early
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
         });
 
-        elementsToAnimate.forEach((element, index) => {
+        elements.forEach((element, index) => {
             element.classList.add('fade-in-up', 'is-hidden');
-
-            // CHANGED: Delay multiplier reduced from 100 to 50 for a much faster stagger.
-            const delay = (index % 10) * 50;
-            element.style.transitionDelay = `${delay}ms`;
-
+            // If it's a group, apply a staggered delay. Otherwise, no delay.
+            if (isGroup) {
+                element.style.transitionDelay = `${index * 80}ms`; // Slightly faster stagger
+            }
             observer.observe(element);
         });
-    }
+    };
+
+    // --- Animate Individual Elements (no stagger needed) ---
+    setupObserver(document.querySelectorAll('.hero-headline, .statue-container, .logo-slide-track, .section-heading, .section-subheading, .see-all-btn, .view-all-btn'));
+
+    // --- Animate Groups of Elements (with stagger) ---
+    setupObserver(document.querySelectorAll('.callout'), true);
+    setupObserver(document.querySelectorAll('.service-card'), true);
+    setupObserver(document.querySelectorAll('.work-card'), true);
+    setupObserver(document.querySelectorAll('.how-card-wrapper'), true);
+    setupObserver(document.querySelectorAll('.blog-card'), true);
+    setupObserver(document.querySelectorAll('.testimonial-card'), true);
+
 
     /* ====================================================== */
-    /* === MOBILE CAROUSEL & FAQ LOGIC ====================== */
+    /* === OTHER PAGE-SPECIFIC JAVASCRIPT =================== */
     /* ====================================================== */
-
-    // "How We Do It" Carousel on Mobile
-    if (window.matchMedia("(max-width: 768px)").matches) {
-        const track = document.querySelector('.how-carousel-track');
-        const dotsContainer = document.querySelector('.carousel-dots');
-        if (track && dotsContainer) {
-            // Your carousel logic can be added here if needed
-        }
-    }
 
     // FAQ Accordion Logic
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
-        question.addEventListener('click', () => {
-            // Toggle the 'open' class on the faq-item
-            item.classList.toggle('open');
-        });
+        if (question) {
+            question.addEventListener('click', () => {
+                item.classList.toggle('open');
+            });
+        }
     });
 
-    /* ====================================================== */
-    /* === DESKTOP 3D TILT EFFECT ========================= */
-    /* ====================================================== */
+    // Desktop 3D Tilt Effect
     if (window.matchMedia("(min-width: 1025px)").matches) {
         const tiltCards = document.querySelectorAll('.testimonial-card');
         tiltCards.forEach(card => {
@@ -528,10 +528,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    
-    /* ====================================================== */
-    /* === Mobile Header Toggle ============================= */
-    /* ====================================================== */
+
+    // Mobile Header Toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const mobileNavMenu = document.querySelector('.mobile-nav-menu');
     const body = document.body;
@@ -542,32 +540,149 @@ document.addEventListener('DOMContentLoaded', () => {
             if (body.classList.contains('mobile-menu-open')) {
                 mobileNavMenu.style.display = 'flex';
             } else {
-                mobileNavMenu.style.display = 'none';
+                // Use a timeout to allow the fade-out/slide-out animation to finish if you add one
+                setTimeout(() => {
+                    if (!body.classList.contains('mobile-menu-open')) {
+                         mobileNavMenu.style.display = 'none';
+                    }
+                }, 300); // Match this to your CSS transition duration
             }
         });
     }
-
 });
 
 // ===================================================================
 //   Your commented-out code is preserved below for future use.
 // ===================================================================
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     console.log("UI Ready!");
-//     // Example: A subtle parallax effect for the statue
-//     const hero = document.querySelector('.hero-section');
-//     const statue = document.querySelector('.statue-container');
+document.addEventListener('DOMContentLoaded', () => {
 
-//     if (hero && statue) {
-//         hero.addEventListener('mousemove', (e) => {
-//             const { clientX, clientY } = e;
-//             const { offsetWidth, offsetHeight } = hero;
+    /* ====================================================== */
+    /* === 1. UNIVERSAL ON-SCROLL FADE-IN ANIMATION ======= */
+    /* ====================================================== */
+    const setupObserver = (elements, isGroup = false) => {
+        if (!elements || elements.length === 0) return;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('is-hidden');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        elements.forEach((element, index) => {
+            element.classList.add('fade-in-up', 'is-hidden');
+            if (isGroup) {
+                element.style.transitionDelay = `${index * 100}ms`;
+            }
+            observer.observe(element);
+        });
+    };
+
+    // Animate individual elements
+    setupObserver(document.querySelectorAll('.page-header, .contact-grid, .footer-section'));
+    // Animate groups of elements with a stagger
+    setupObserver(document.querySelectorAll('.form-group, .contact-item'), true);
+
+
+    /* ====================================================== */
+    /* === 2. INTERACTIVE FLOATING LABEL FORMS ============ */
+    /* ====================================================== */
+    const formGroups = document.querySelectorAll('.form-group');
+    formGroups.forEach(group => {
+        const input = group.querySelector('input, textarea');
+        if (input) {
+            // Check on load if input already has a value
+            if (input.value.trim() !== '') {
+                group.classList.add('is-active');
+            }
+            input.addEventListener('focus', () => {
+                group.classList.add('is-active');
+            });
+            input.addEventListener('blur', () => {
+                if (input.value.trim() === '') {
+                    group.classList.remove('is-active');
+                }
+            });
+        }
+    });
+
+    /* ====================================================== */
+    /* === 3. DYNAMIC TITLE WORD REVEAL =================== */
+    /* ====================================================== */
+    const infoTitle = document.querySelector('.info-title');
+    if (infoTitle) {
+        const text = infoTitle.innerHTML; // Use innerHTML to preserve the <span>
+        infoTitle.innerHTML = ''; // Clear original content
+        const words = text.split('<br>'); // Split by line breaks
+        
+        words.forEach((line, lineIndex) => {
+            const lineDiv = document.createElement('div');
+            const lineWords = line.trim().split(' ');
+            lineWords.forEach((word, wordIndex) => {
+                const wordSpan = document.createElement('span');
+                wordSpan.innerHTML = word + ' '; // Add space back
+                wordSpan.style.display = 'inline-block';
+                wordSpan.classList.add('fade-in-up', 'is-hidden');
+                // Create a staggered delay
+                wordSpan.style.transitionDelay = `${(lineIndex * 2 + wordIndex) * 150}ms`;
+                lineDiv.appendChild(wordSpan);
+            });
+            infoTitle.appendChild(lineDiv);
+        });
+        // Now that the spans are created, observe them
+        setupObserver(infoTitle.querySelectorAll('span'));
+    }
+    
+    /* ====================================================== */
+    /* === 4. FORM SUBMISSION FEEDBACK ==================== */
+    /* ====================================================== */
+    const contactForm = document.querySelector('.contact-form-column form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Stop actual form submission
+            const submitButton = contactForm.querySelector('.btn-gradient-border');
             
-//             const xPos = (clientX / offsetWidth - 0.5) * 30; // -15px to 15px
-//             const yPos = (clientY / offsetHeight - 0.5) * 30; // -15px to 15px
-            
-//             statue.style.transform = `translate(-50%, -50%) translate(${xPos}px, ${yPos}px)`;
-//         });
-//     }
-// });
+            // Start loading state
+            submitButton.classList.add('is-loading');
+            submitButton.disabled = true;
+
+            // Simulate a network request (e.g., sending the email)
+            setTimeout(() => {
+                // Change to success state
+                submitButton.classList.remove('is-loading');
+                submitButton.classList.add('is-success');
+                submitButton.textContent = 'Message Sent!';
+            }, 2000); // 2-second delay
+        });
+    }
+
+    /* ====================================================== */
+    /* === OTHER PAGE-SPECIFIC JAVASCRIPT =================== */
+    /* ====================================================== */
+
+    // FAQ Accordion Logic
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        if (question) {
+            question.addEventListener('click', () => {
+                item.classList.toggle('open');
+            });
+        }
+    });
+
+    // Mobile Header Toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileNavMenu = document.querySelector('.mobile-nav-menu');
+    const body = document.body;
+
+    if (mobileMenuToggle && mobileNavMenu) {
+        mobileMenuToggle.addEventListener('click', () => {
+            body.classList.toggle('mobile-menu-open');
+            mobileNavMenu.style.display = body.classList.contains('mobile-menu-open') ? 'flex' : 'none';
+        });
+    }
+
+});

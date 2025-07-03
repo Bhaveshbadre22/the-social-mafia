@@ -36,7 +36,6 @@
         <div class="nav-group-right">
             <ul class="nav-links">
                 <li><a href="our-work.html">Our work</a></li>
-                <li><a href="careers.html">Careers</a></li>
                 <li><a href="about-us.html">About us</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -57,7 +56,6 @@
     <!-- Full-Screen Mobile Navigation Menu (No changes here) -->
     <div class="mobile-nav-menu">
         <a href="our-work.html">Our work</a>
-        <a href="careers.html">Careers</a>
         <a href="about-us.html">About us</a>
         <a href="contact.html">Contact</a>
     </div>
@@ -358,6 +356,361 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* ====================================================== */
+    /* === UNIVERSAL ON-SCROLL FADE-IN ANIMATION (REVISED) == */
+    /* ====================================================== */
+
+    // Helper function to set up and observe a group of elements
+    const setupObserver = (elements, isGroup = false) => {
+        if (!elements || elements.length === 0) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('is-hidden');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        elements.forEach((element, index) => {
+            element.classList.add('fade-in-up', 'is-hidden');
+            if (isGroup) {
+                element.style.transitionDelay = `${index * 80}ms`;
+            }
+            observer.observe(element);
+        });
+    };
+
+    // --- Animate Individual Elements ---
+    setupObserver(document.querySelectorAll('.page-header, .contact-grid, .footer-section, .section-title, .section-heading, .section-subheading, .see-all-btn, .view-all-btn'));
+
+    // --- Animate Groups of Elements (with stagger) ---
+    setupObserver(document.querySelectorAll('.callout'), true);
+    setupObserver(document.querySelectorAll('.service-card'), true);
+    setupObserver(document.querySelectorAll('.work-card'), true);
+    setupObserver(document.querySelectorAll('.how-card-wrapper'), true);
+    setupObserver(document.querySelectorAll('.blog-card'), true);
+    setupObserver(document.querySelectorAll('.testimonial-card'), true);
+    // NEW: Add the feature cards to the staggered animation group
+    setupObserver(document.querySelectorAll('.feature-card'), true);
+
+
+    /* ====================================================== */
+    /* === NEW: INTERACTIVE GLOW FOR FEATURE CARDS ======== */
+    /* ====================================================== */
+    if (window.matchMedia("(min-width: 1025px)").matches) {
+        const featureCards = document.querySelectorAll('.feature-card');
+        featureCards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    }
+
+    // ... (The rest of your existing script.js code for FAQ, Tilt, Header, etc. goes here)
+
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* ====================================================== */
+    /* === UNIVERSAL ON-SCROLL FADE-IN ANIMATION (REVISED) == */
+    /* ====================================================== */
+    
+    // NEW: Function to animate the number counters
+    const animateCounter = (element) => {
+        const text = element.textContent;
+        const target = parseInt(text.replace(/\D/g, '')); // Extract numbers
+        const suffix = text.replace(/\d/g, ''); // Extract non-numbers like '+'
+        const duration = 2000; // 2 seconds
+        let start = null;
+
+        const step = (timestamp) => {
+            if (!start) start = timestamp;
+            const progress = Math.min((timestamp - start) / duration, 1);
+            element.textContent = Math.floor(progress * target) + suffix;
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    };
+
+    // Helper function to set up and observe a group of elements
+    const setupObserver = (elements, isGroup = false) => {
+        if (!elements || elements.length === 0) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Universal reveal
+                    entry.target.classList.remove('is-hidden');
+                    entry.target.classList.add('is-revealed'); // For custom reveals like the image
+
+                    // NEW: Check if the revealed element is a stat-bar
+                    if (entry.target.classList.contains('stat-bar')) {
+                        const numberElement = entry.target.querySelector('.stat-number');
+                        if (numberElement) {
+                            animateCounter(numberElement);
+                        }
+                    }
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2, // A bit more of the element should be visible
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        elements.forEach((element, index) => {
+            element.classList.add('fade-in-up', 'is-hidden');
+            if (isGroup) {
+                // Different stagger for a different feel
+                element.style.transitionDelay = `${index * 120}ms`; 
+            }
+            observer.observe(element);
+        });
+    };
+
+    // --- Animate Individual Elements ---
+    setupObserver(document.querySelectorAll('.page-header, .contact-grid, .footer-section, .section-title, .section-heading, .section-subheading, .see-all-btn, .view-all-btn'));
+
+    // --- Animate Groups of Elements (with stagger) ---
+    setupObserver(document.querySelectorAll('.callout'), true);
+    setupObserver(document.querySelectorAll('.service-card'), true);
+    setupObserver(document.querySelectorAll('.work-card'), true);
+    setupObserver(document.querySelectorAll('.how-card-wrapper'), true);
+    setupObserver(document.querySelectorAll('.blog-card'), true);
+    setupObserver(document.querySelectorAll('.testimonial-card'), true);
+    setupObserver(document.querySelectorAll('.feature-card'), true);
+    // NEW: Add the trust section elements to the observer
+    setupObserver(document.querySelectorAll('.trust-image-container'), false); // No stagger for the single image
+    setupObserver(document.querySelectorAll('.stat-bar'), true); // Stagger the stat bars
+
+
+    /* ====================================================== */
+    /* === INTERACTIVE GLOW FOR FEATURE CARDS ============= */
+    /* ====================================================== */
+    if (window.matchMedia("(min-width: 1025px)").matches) {
+        const featureCards = document.querySelectorAll('.feature-card');
+        featureCards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    }
+
+    // ... (The rest of your existing script.js code for FAQ, Tilt, Header, etc. goes here)
+
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* ====================================================== */
+    /* === UNIVERSAL ON-SCROLL FADE-IN ANIMATION (REVISED) == */
+    /* ====================================================== */
+
+    // NOTE: This section contains all the logic from previous steps.
+    // The only change is adding the new selectors.
+
+    const animateCounter = (element) => { /* ... existing counter code ... */ };
+
+    const setupObserver = (elements, isGroup = false) => {
+        if (!elements || elements.length === 0) return;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('is-hidden');
+                    entry.target.classList.add('is-revealed');
+                    if (entry.target.classList.contains('stat-bar')) {
+                        const numberElement = entry.target.querySelector('.stat-number');
+                        if (numberElement) animateCounter(numberElement);
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        elements.forEach((element, index) => {
+            element.classList.add('fade-in-up', 'is-hidden');
+            if (isGroup) {
+                element.style.transitionDelay = `${index * 80}ms`;
+            }
+            observer.observe(element);
+        });
+    };
+
+    // --- Animate Individual Elements ---
+    setupObserver(document.querySelectorAll('.page-header, .contact-grid, .footer-section, .section-title, .section-heading, .section-subheading, .see-all-btn, .view-all-btn, .trust-image-container'));
+    
+    // NEW: Add .story-vision-grid to trigger the divider animation
+    setupObserver(document.querySelectorAll('.story-vision-grid'));
+
+
+    // --- Animate Groups of Elements (with stagger) ---
+    setupObserver(document.querySelectorAll('.callout, .service-card, .work-card, .how-card-wrapper, .blog-card, .testimonial-card, .feature-card, .stat-bar'), true);
+    
+    // NEW: Animate the tags and paragraphs from the Story/Vision section
+    setupObserver(document.querySelectorAll('.story-vision-grid .section-tag'), true);
+    setupObserver(document.querySelectorAll('.story-vision-grid .text-column p'), true);
+
+
+    /* ====================================================== */
+    /* === INTERACTIVE GLOW & OTHER JS ====================== */
+    /* ====================================================== */
+    // ... (The rest of your existing script.js code remains the same)
+
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* ====================================================== */
+    /* === UNIVERSAL ON-SCROLL FADE-IN ANIMATION ========== */
+    /* ====================================================== */
+
+    const animateCounter = (element) => { /* ... existing counter code ... */ };
+
+    const setupObserver = (elements, isGroup = false) => {
+        if (!elements || elements.length === 0) return;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('is-hidden');
+                    entry.target.classList.add('is-revealed');
+                    if (entry.target.classList.contains('stat-bar')) {
+                        const numberElement = entry.target.querySelector('.stat-number');
+                        if (numberElement) animateCounter(numberElement);
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        elements.forEach((element, index) => {
+            element.classList.add('fade-in-up', 'is-hidden');
+            if (isGroup) {
+                element.style.transitionDelay = `${index * 80}ms`;
+            }
+            observer.observe(element);
+        });
+    };
+
+    // --- Animate Individual Elements ---
+    // REMOVED `.process-container` from this list. This is the key fix.
+    setupObserver(document.querySelectorAll(
+        '.page-header, .contact-grid, .footer-section, .section-title, .section-heading, .section-subheading, .see-all-btn, .view-all-btn, .trust-image-container, .story-vision-grid'
+    ));
+
+    // --- Animate Groups of Elements (with stagger) ---
+    setupObserver(document.querySelectorAll(
+        '.callout, .service-card, .work-card, .how-card-wrapper, .blog-card, .testimonial-card, .feature-card, .stat-bar, .story-vision-grid .section-tag, .story-vision-grid .text-column p'
+    ), true);
+
+
+    /* ====================================================== */
+    /* === NEW: DEDICATED LOGIC FOR "HOW WE DO IT" TIMELINE = */
+    /* ====================================================== */
+    const processContainer = document.querySelector('.process-container');
+    if (processContainer) {
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    timelineObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.25 }); // Trigger when 25% of the container is visible
+
+        timelineObserver.observe(processContainer);
+    }
+
+
+    /* ====================================================== */
+    /* === OTHER PAGE-SPECIFIC JAVASCRIPT =================== */
+    /* ====================================================== */
+    
+    // ... (All your other JS code for glow effects, FAQs, header toggle, etc. goes here)
+
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ... (All your existing setupObserver and other animation functions are here)
+
+    /* ====================================================== */
+    /* === DEDICATED LOGIC FOR "HOW WE DO IT" TIMELINE ==== */
+    /* ====================================================== */
+    const processContainer = document.querySelector('.process-container');
+    // ... (This existing block remains unchanged)
+
+    
+    /* ====================================================== */
+    /* === NEW: DEDICATED LOGIC FOR CTA SECTION ANIMATION === */
+    /* ====================================================== */
+    const ctaBox = document.querySelector('.cta-box');
+    if (ctaBox) {
+        const ctaObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    ctaObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.25 }); // Trigger when 25% of the box is visible
+
+        ctaObserver.observe(ctaBox);
+    }
+    
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if(newsletterForm) {
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const button = newsletterForm.querySelector('button');
+            
+            // 1. Enter loading state
+            button.classList.add('is-loading');
+            button.disabled = true;
+
+            // 2. Simulate network request
+            setTimeout(() => {
+                // 3. Enter success state
+                button.classList.remove('is-loading');
+                button.classList.add('is-success');
+                // You can replace the arrow with a checkmark SVG here if you have one
+                // For now, we just change the color and it stays that way.
+                
+                // Example: button.innerHTML = '<img src="assets/checkmark.svg" alt="Success">';
+            }, 2000); // 2-second delay for simulation
+        });
+    }
+
+
+    /* ====================================================== */
+    /* === OTHER PAGE-SPECIFIC JAVASCRIPT =================== */
+    /* ====================================================== */
+    
+    // ... (All your other JS code for glow effects, FAQs, header toggle, etc.)
 });
     </script>
 

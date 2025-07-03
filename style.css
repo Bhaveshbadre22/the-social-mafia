@@ -290,6 +290,7 @@ body {
     max-width: 1240px;
     margin: 0 auto;
     perspective: 1000px; 
+    border-radius: 20px;
 }
 
 /* --- Testimonial Card Base Styles --- */
@@ -303,10 +304,9 @@ body {
     background-color: #0e0e0e;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     
-    /* FIX: Ensures border-radius is respected during 3D transform */
+    /* FIX: This is the new line that solves the border-radius issue during the 3D transform. */
     transform-style: preserve-3d;
 
-    /* UPDATED: Faster transition for the reset animation */
     transition: transform 0.3s ease-out, opacity 0.5s ease;
 }
 
@@ -315,22 +315,22 @@ body {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    /* UPDATED: Faster, snappier transition */
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 10;
 }
 
 img.bw {
-    filter: grayscale(100%);
-    /* UPDATED: Faster filter transition */
+    /* filter: grayscale(100%); */ /* As per your code */
     transition: filter 0.3s ease;
+    z-index: 10;
 }
 
 /* --- The Glassmorphism Overlay --- */
 .card-content-overlay {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
+    bottom: -5px;
+    left: 0px;
+    right: 0px;
     background: rgba(30, 30, 30, 0.45);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
@@ -338,8 +338,8 @@ img.bw {
     border-radius: 16px;
     padding: 25px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    /* UPDATED: Faster, snappier transition */
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 10;
 }
 
 .card-header { 
@@ -387,11 +387,9 @@ img.bw {
     }
 
     .testimonial-card.is-tilting .card-content-overlay {
-        /* UPDATED: Less aggressive "lift" for subtlety */
         transform: translateZ(30px); 
     }
     .testimonial-card.is-tilting > img {
-        /* UPDATED: Less aggressive push/zoom for subtlety */
         transform: translateZ(-15px) scale(1.03); 
     }
 }
@@ -402,6 +400,7 @@ img.bw {
 .testimonial-card-hidden {
     opacity: 0;
     transform: translateY(50px);
+    z-index: 10;
 }
 
 /* ============================================ */
@@ -417,7 +416,6 @@ img.bw {
     text-align: center;
 }
 
-/* ... .section-subheading styles remain the same ... */
 .section-subheading {
     font-family: 'Manrope', sans-serif;
     font-weight: 400;
@@ -450,7 +448,6 @@ img.bw {
     color: #FFFFFF;
     overflow: hidden;
     background: rgba(255,255,255,0.03);
-    /* --- NEW: Default transition for all animations --- */
     transition: transform 0.4s ease, border-color 0.4s ease, opacity 0.5s ease;
 }
 
@@ -502,7 +499,10 @@ img.bw {
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.gradient-dot img { /* No properties needed here */ }
+.gradient-dot img { 
+    width: 30px;
+    height: 30px;
+}
 .service-card hr { border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 0 0 24px; }
 .service-text { font-family: 'Manrope', sans-serif; font-weight: 300; font-size: 18px; line-height: 1.6; margin: 0; text-align: left; letter-spacing: 0%; margin-bottom: 7px; }
 
@@ -526,20 +526,17 @@ img.bw {
         background-clip: text;
         text-fill-color: transparent;
     }
-    .service-card:hover .gradient-dot {
-        transform: scale(1.1);
-    }
+    
+    /* REMOVED: The rule for scaling the gradient dot on hover was deleted from here. */
 }
-
 
 /* ---
    2. MOBILE & TABLET ANIMATION STATE
-   The class that will be controlled by JavaScript
-   (This can be shared with the .work-card if desired, but we'll keep it separate for clarity)
+   (This class is controlled by JavaScript and is not affected)
 --- */
 .service-card-hidden {
     opacity: 0;
-    transform: translateY(50px); /* Start 50px lower */
+    transform: translateY(50px);
 }
 
 /* ====================================================== */
@@ -548,7 +545,7 @@ img.bw {
 
 .work-section {
     background-color: #0e0e0e;
-    padding: 20px 0 20px;
+    padding: 0px 0 20px;
     text-align: center;
 }
 .work-section .section-subheading {

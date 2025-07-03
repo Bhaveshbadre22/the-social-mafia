@@ -82,7 +82,7 @@ main {
     height: auto;
 }
 
-/* --- Special Features Section --- */
+/* --- Special Features Section (ANIMATED) --- */
 .special-features {
     max-width: 1100px;
     margin: 10rem auto;
@@ -116,8 +116,11 @@ main {
   z-index: 1;
   color: #fff;
   overflow: hidden;
+  /* NEW: Add transition for the lift effect */
+  transition: transform 0.4s ease;
 }
 
+/* The Gradient Border */
 .feature-card::before {
   content: '';
   position: absolute;
@@ -125,10 +128,30 @@ main {
   top: 0; left: 0; right: 0; bottom: 0;
   padding: 1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, #FFC402, #F20C89);
+  background: linear-gradient(135deg, #FFC402, #F20C89, #FFC402); /* Added start color at end for seamless loop */
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
   mask-composite: exclude;
+  
+  /* NEW: Prepare for animation */
+  background-size: 200% 200%;
+  transition: background-position 0.6s ease;
+}
+
+/* NEW: The interactive background glow effect */
+.feature-card::after {
+  content: '';
+  position: absolute;
+  z-index: -2; /* Sits behind the border */
+  top: 0; left: 0; width: 100%; height: 100%;
+  border-radius: inherit;
+  /* The glow will be positioned using CSS variables updated by JS */
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(201, 110, 14, 0.15), /* Subtle pink glow */
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .feature-card h3 {
@@ -136,21 +159,46 @@ main {
     font-family: 'Manrope';
     font-weight: 500;
     font-size: 25px;
-    line-height: 56.88px;
-    letter-spacing: 0%;
+    line-height: 1.2; /* Adjusted for better spacing */
+    margin-bottom: 1rem;
 }
 
 .feature-card p {
     font-weight: 300;
     color: rgba(255, 255, 255, 0.85);
     font-family: 'Manrope';
-    font-size: 22px;
-    line-height: 1.2;
+    font-size: 18px; /* Adjusted for readability */
+    line-height: 1.6; /* Adjusted for better spacing */
     letter-spacing: 0%;
-    margin-bottom: 24px;
+    margin-bottom: 0;
 }
 
-/* --- Trust Backed by Numbers Section --- */
+/* --- HOVER STATE ANIMATIONS --- */
+@media (min-width: 1025px) {
+    .feature-card:hover {
+        transform: translateY(-8px); /* Card lift */
+    }
+
+    .feature-card:hover::before {
+        background-position: 100% 0; /* Animate gradient border */
+    }
+
+    .feature-card:hover::after {
+        opacity: 1; /* Reveal the glow */
+    }
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr; /* Stack cards on mobile */
+    }
+    .special-features {
+        margin: 5rem auto;
+    }
+}
+
+/* --- Trust Backed by Numbers Section (ANIMATED) --- */
 .trust-section {
     max-width: 1100px;
     margin: 10rem auto;
@@ -168,13 +216,17 @@ main {
 
 .trust-image-container {
     flex: 1 1 45%;
+    /* NEW: This creates the "mask" for the reveal animation */
+    border-radius: 28px;
+    overflow: hidden;
 }
 
 .trust-image-container img {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 28px;
+    /* NEW: Base transition for the slide-up effect */
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .stats-column {
@@ -194,8 +246,11 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* NEW: Add transition for the hover lift effect */
+    transition: transform 0.4s ease;
 }
 
+/* The gradient border (no changes needed) */
 .stat-bar::before {
     content: '';
     position: absolute;
@@ -207,6 +262,21 @@ main {
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
+}
+
+/* NEW: The animated background fill for the hover effect */
+.stat-bar::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Layering a 40% black overlay on top of the original gradient */
+background: 
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), /* The dark overlay */
+    linear-gradient(135deg, #FFC402, #F20C89); /* The original gradient */
+    z-index: -2;
+    transform: scaleX(0); /* Initially hidden */
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .stat-number {
@@ -228,7 +298,39 @@ main {
     letter-spacing: 0%;
 }
 
-/* --- Our Story & Vision Section --- */
+/* --- HOVER & ANIMATION STATES --- */
+
+/* Reveal state for the image (controlled by JS) */
+.trust-image-container.is-revealed img {
+    transform: translateY(0);
+}
+
+/* Initial hidden state for the image */
+.trust-image-container img {
+    transform: translateY(100%);
+}
+
+/* Desktop hover effects */
+@media (min-width: 1025px) {
+    .stat-bar:hover {
+        transform: translateY(-5px); /* Lift effect */
+    }
+    .stat-bar:hover::after {
+        transform: scaleX(1); /* Fill the background */
+    }
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    .trust-grid {
+        flex-direction: column;
+    }
+    .trust-section {
+        margin: 5rem auto;
+    }
+}
+
+/* --- Our Story & Vision Section (ANIMATED) --- */
 .story-vision-section {
     max-width: 1200px;
     margin: 10rem auto;
@@ -242,15 +344,24 @@ main {
     position: relative;
 }
 
+/* The vertical divider line */
 .story-vision-grid::before {
     content: '';
     position: absolute;
     top: 0;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%);
     width: 1px;
     background-color: rgba(255, 255, 255, 0.15);
+    /* Prepare for animation */
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+/* The revealed state for the divider (triggered by JS) */
+.story-vision-grid.is-revealed::before {
+    transform: scaleY(1);
 }
 
 .section-tag {
@@ -277,7 +388,8 @@ main {
     top: 0; left: 0; right: 0; bottom: 0;
     padding: 2px;
     border-radius: inherit;
-    background: linear-gradient(135deg, #FFC402, #F20C89);
+    /* Using the less-bright gradient */
+    background: linear-gradient(135deg, rgba(255, 196, 2, 0.7), rgba(242, 12, 137, 0.7));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -296,7 +408,21 @@ main {
     margin-bottom: 1.5rem;
 }
 
-/* --- How We Do It Section --- */
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    .story-vision-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    .story-vision-grid::before {
+        display: none; /* Hide divider on mobile */
+    }
+    .story-vision-section {
+        margin: 5rem auto;
+    }
+}
+
+/* --- How We Do It Section (CORRECTED & ANIMATED) --- */
 .how-it-works-section {
     max-width: 1100px;
     margin: 10rem auto;
@@ -314,6 +440,15 @@ main {
     height: 4px;
     background: var(--gradient);
     border-radius: 2px;
+    /* Initial state: Hidden */
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Revealed state for the timeline (triggered by JS) */
+.process-container.is-revealed .timeline {
+    transform: scaleX(1);
 }
 
 .timeline-step {
@@ -331,28 +466,45 @@ main {
     font-family: 'Urbanist';
     font-weight: 800;
     font-size: 32.96px;
-    line-height: 100%;
-    letter-spacing: 0%;
+    /* Initial state: Hidden and small */
+    opacity: 0;
+    transform: translateY(-50%) scale(0.5);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Revealed state for all steps */
+.process-container.is-revealed .timeline-step {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
 }
 
 .step-1 {
     background-color: var(--color-yellow);
     box-shadow: 0 0 25px 5px rgba(255, 196, 2, 0.35);
     left: 0;
+    transition-delay: 0.3s; /* Stagger delay */
 }
-
 .step-2 {
     background-color: #FB8A2C;
     box-shadow: 0 0 25px 5px rgba(251, 138, 44, 0.35);
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.5); /* Override transform for positioning */
+    transition-delay: 0.6s; /* Stagger delay */
 }
-
 .step-3 {
     background-color: var(--color-pink);
     box-shadow: 0 0 25px 5px rgba(242, 20, 137, 0.35);
     left: 100%;
-    transform: translate(-100%, -50%);
+    transform: translate(-100%, -50%) scale(0.5); /* Override transform for positioning */
+    transition-delay: 0.9s; /* Stagger delay */
+}
+
+/* Revealed state transform override for steps 2 and 3 */
+.process-container.is-revealed .step-2 {
+    transform: translate(-50%, -50%) scale(1);
+}
+.process-container.is-revealed .step-3 {
+    transform: translate(-100%, -50%) scale(1);
 }
 
 .process-details-grid {
@@ -361,6 +513,24 @@ main {
     gap: 2rem;
     margin-top: 7.5rem; 
 }
+
+.process-step-details {
+    /* Initial state: Hidden and moved down */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Revealed state for the details */
+.process-container.is-revealed .process-step-details {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger delays for the details */
+.process-container.is-revealed .process-step-details:nth-child(1) { transition-delay: 0.4s; }
+.process-container.is-revealed .process-step-details:nth-child(2) { transition-delay: 0.7s; }
+.process-container.is-revealed .process-step-details:nth-child(3) { transition-delay: 1.0s; }
 
 .process-step-details:nth-child(1) { text-align: left; }
 .process-step-details:nth-child(2) { text-align: center; }
@@ -373,10 +543,8 @@ main {
     min-height: 50px;
     font-weight: 500;
     font-size: 34.11px;
-    /* line-height: 39.79px; */
     letter-spacing: 0%;
 }
-
 .process-step-details p {
     font-family: var(--font-body);
     font-weight: 300;
@@ -386,7 +554,24 @@ main {
     letter-spacing: 0%;
 }
 
-/* --- CTA / Newsletter Section --- */
+@media (max-width: 768px) {
+    .how-it-works-section {
+        margin: 5rem auto;
+    }
+    .process-details-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        margin-top: 5rem;
+    }
+    .process-step-details:nth-child(n) {
+        text-align: center;
+    }
+    .timeline {
+        display: none;
+    }
+}
+
+/* --- CTA / Newsletter Section (ANIMATED) --- */
 .cta-section {
     position: relative;
     max-width: 900px;
@@ -398,12 +583,20 @@ main {
     background-color: #0b0b0b;
     border: 4px solid #424141;
     border-radius: 28px;
-    padding: 5rem 4rem;
-    padding-top: 25px;
+    padding: 4rem; /* Adjusted padding */
     text-align: center;
-    width: 900px;
     position: relative;
     overflow: hidden;
+    /* NEW: Prepare for on-scroll reveal */
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* NEW: Revealed state for the box */
+.cta-box.is-revealed {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .blob {
@@ -424,24 +617,45 @@ main {
     opacity: 0.7;
     border-radius: 50%;
     z-index: 0;
+    /* NEW: Add pulsing animation */
+    animation: pulse 5s infinite ease-in-out;
 }
 
-.blob-2-img {
-    position: absolute;
-    transform: translateX(-50%);
-    width: 120%;
-    height: auto;
-    bottom: -3%;
-    left: 50%;
-    z-index: -1;
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 0.8; }
 }
 
 .cta-content {
     position: relative;
     z-index: 2;
-    margin-right: 20px;
-    margin-left: 20px;
 }
+
+.cta-content h2,
+.cta-content .cta-subheading,
+.cta-content .form-container,
+.cta-content .cta-description {
+    /* NEW: Prepare all content for the staggered reveal */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* NEW: Revealed state for the content */
+.cta-box.is-revealed .cta-content h2,
+.cta-box.is-revealed .cta-content .cta-subheading,
+.cta-box.is-revealed .cta-content .form-container,
+.cta-box.is-revealed .cta-content .cta-description {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* NEW: Staggered delays for the cascade effect */
+.cta-box.is-revealed .cta-content h2 { transition-delay: 0.2s; }
+.cta-box.is-revealed .cta-content .cta-subheading { transition-delay: 0.3s; }
+.cta-box.is-revealed .cta-content .form-container { transition-delay: 0.4s; }
+.cta-box.is-revealed .cta-content .cta-description { transition-delay: 0.5s; }
+
 
 .cta-content h2 {
     font-family: var(--font-body);
@@ -449,30 +663,22 @@ main {
     margin-bottom: 0.5rem;
     font-weight: 300;
     font-size: 36px;
-    line-height: 100%;
-    letter-spacing: 0%;
 }
-
 .cta-content .cta-subheading {
     font-family: var(--font-body);
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 2.5rem;
     font-weight: 200;
     font-size: 20px;
-    line-height: 100%;
-    letter-spacing: 0%;
 }
-
 .cta-content .cta-description {
     font-family: var(--font-body);
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.7);
-    width: 100%;
+    max-width: 600px; /* Constrain width */
     margin: 2.5rem auto 0 auto;
     font-weight: 300;
-    font-size: 20px;
-    letter-spacing: 0%;
-    text-align: center;
+    font-size: 18px; /* Slightly smaller for balance */
 }
 
 .form-container {
@@ -503,7 +709,6 @@ main {
     color: var(--color-white);
     min-width: 0;
 }
-
 .newsletter-form input::placeholder {
     color: rgba(255, 255, 255, 0.5);
     opacity: 1;
@@ -520,16 +725,53 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.4s ease;
+    position: relative;
 }
-
 .newsletter-form button:hover {
     transform: scale(1.1);
 }
-
 .newsletter-form button img {
     width: 20px;
     height: auto;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* NEW: Styles for the button submission animation */
+.newsletter-form button.is-loading img {
+    opacity: 0;
+    transform: scale(0);
+}
+.newsletter-form button::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: #fff;
+    opacity: 0;
+    animation: spin 1s linear infinite;
+    transition: opacity 0.3s ease;
+}
+.newsletter-form button.is-loading::after {
+    opacity: 1;
+}
+.newsletter-form button.is-success {
+    background: #27ae60; /* A nice success green */
+    transform: scale(1);
+}
+.newsletter-form button.is-success img {
+    /* Switch to a checkmark - you would need a checkmark.svg */
+    /* For now, we'll just hide the arrow */
+    opacity: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .cta-section { margin: 5rem auto; }
+    .cta-box { padding: 3rem 1.5rem; }
 }
 
 
@@ -623,6 +865,13 @@ main {
         margin-right: auto;
     }
 }
+
+.blob-2-img {
+    position: absolute;
+        width: 150%; /* Make it wider to cover edges on mobile */
+        bottom: -4%;
+        left: -25%;
+    }
 
 /* ============================================= */
 /*        For Mobile Phones (768px)            */
@@ -1004,7 +1253,7 @@ main {
     }
     
     .trust-image-container img {
-        max-width: 250px;
+        max-width: 340px;
     }
 }
 
