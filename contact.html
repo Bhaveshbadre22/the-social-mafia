@@ -24,32 +24,31 @@
     <!-- Header -->
     <header class="site-header">
     <nav class="main-nav">
-        <!-- Logo -->
+        <!-- Logo (No changes here) -->
         <div class="logo">
-            <a href="index.html"> <!-- The link wrapper -->
-                <!-- The default, visible logo -->
+            <a href="index.html">
                 <img class="logo-default" src="assets/Group.svg" alt="The Social Mafia Logo">
-                
-                <!-- The logo that appears on hover -->
                 <img class="logo-hover" src="assets/TSM Full logo.svg" alt="The Social Mafia Logo">
             </a>
         </div>
 
-        <!-- Desktop Navigation Links -->
-         <div>
+        <!-- ========================================================== -->
+        <!-- START: THIS IS THE CRUCIAL CHANGE -->
+        <!-- We wrap the desktop links and button in a single div -->
+        <div class="nav-group-right">
             <ul class="nav-links">
                 <li><a href="our-work.html">Our work</a></li>
                 <li><a href="careers.html">Careers</a></li>
                 <li><a href="about-us.html">About us</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-         </div>
-        
+            <!-- The button is now INSIDE the wrapper -->
+            <a href="contact.html" class="btn-primary">Get in touch</a>
+        </div>
+        <!-- END: THIS IS THE CRUCIAL CHANGE -->
+        <!-- ========================================================== -->
 
-        <!-- Desktop Call-to-Action Button -->
-        <a href="contact.html" class="btn-primary">Get in touch</a>
-
-        <!-- Mobile Menu "Hamburger" Toggle Button -->
+        <!-- Mobile Menu "Hamburger" Toggle Button (No changes here) -->
         <button class="mobile-menu-toggle" aria-label="Open navigation menu">
             <span></span>
             <span></span>
@@ -57,13 +56,12 @@
         </button>
     </nav>
     
-    <!-- Full-Screen Mobile Navigation Menu (Hidden by default) -->
+    <!-- Full-Screen Mobile Navigation Menu (No changes here) -->
     <div class="mobile-nav-menu">
-        <a href="our-work.html">Services</a>
+        <a href="our-work.html">Our work</a>
         <a href="careers.html">Careers</a>
         <a href="about-us.html">About us</a>
         <a href="contact.html">Contact</a>
-        <!-- <a href="contact.html" class="btn-primary" class="active">Get in touch</a> -->
     </div>
 </header>
 
