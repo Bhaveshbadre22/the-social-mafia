@@ -8,7 +8,7 @@
 .foot-wrapper {
     position: relative;
     background-color: #0E0E0E;
-    padding: 60px 20px; /* Add horizontal padding for safety */
+    padding: 100px 20px; /* Add horizontal padding for safety */
     overflow: visible; /* Contains the blobs */
 }
 

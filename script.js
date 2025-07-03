@@ -444,6 +444,111 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* ====================================================== */
+    /* === UNIVERSAL ON-SCROLL FADE-IN ANIMATION ========== */
+    /* ====================================================== */
+
+    const elementsToAnimate = document.querySelectorAll(
+        '.hero-headline, .statue-container, .callout, .logo-slide-track, .testimonial-card, .service-card, .work-card, .how-card-wrapper, .blog-card, .see-all-btn, .view-all-btn, .section-heading, .section-subheading'
+    );
+
+    if (elementsToAnimate.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('is-hidden');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1, // Trigger when 10% of the element is visible
+            rootMargin: "0px 0px -50px 0px" // Trigger animation a little early
+        });
+
+        elementsToAnimate.forEach((element, index) => {
+            element.classList.add('fade-in-up', 'is-hidden');
+
+            // CHANGED: Delay multiplier reduced from 100 to 50 for a much faster stagger.
+            const delay = (index % 10) * 50;
+            element.style.transitionDelay = `${delay}ms`;
+
+            observer.observe(element);
+        });
+    }
+
+    /* ====================================================== */
+    /* === MOBILE CAROUSEL & FAQ LOGIC ====================== */
+    /* ====================================================== */
+
+    // "How We Do It" Carousel on Mobile
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        const track = document.querySelector('.how-carousel-track');
+        const dotsContainer = document.querySelector('.carousel-dots');
+        if (track && dotsContainer) {
+            // Your carousel logic can be added here if needed
+        }
+    }
+
+    // FAQ Accordion Logic
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            // Toggle the 'open' class on the faq-item
+            item.classList.toggle('open');
+        });
+    });
+
+    /* ====================================================== */
+    /* === DESKTOP 3D TILT EFFECT ========================= */
+    /* ====================================================== */
+    if (window.matchMedia("(min-width: 1025px)").matches) {
+        const tiltCards = document.querySelectorAll('.testimonial-card');
+        tiltCards.forEach(card => {
+            const maxTilt = 4;
+            card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+            card.addEventListener('mousemove', (e) => {
+                const cardRect = card.getBoundingClientRect();
+                const x = e.clientX - cardRect.left;
+                const y = e.clientY - cardRect.top;
+                const midCardWidth = cardRect.width / 2;
+                const midCardHeight = cardRect.height / 2;
+                const tiltY = (x - midCardWidth) / midCardWidth * maxTilt;
+                const tiltX = (midCardHeight - y) / midCardHeight * maxTilt;
+                card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+                card.classList.add('is-tilting');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transition = 'transform 0.3s ease-out';
+                card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+                card.classList.remove('is-tilting');
+            });
+        });
+    }
+    
+    /* ====================================================== */
+    /* === Mobile Header Toggle ============================= */
+    /* ====================================================== */
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileNavMenu = document.querySelector('.mobile-nav-menu');
+    const body = document.body;
+
+    if (mobileMenuToggle && mobileNavMenu) {
+        mobileMenuToggle.addEventListener('click', () => {
+            body.classList.toggle('mobile-menu-open');
+            if (body.classList.contains('mobile-menu-open')) {
+                mobileNavMenu.style.display = 'flex';
+            } else {
+                mobileNavMenu.style.display = 'none';
+            }
+        });
+    }
+
+});
+
 // ===================================================================
 //   Your commented-out code is preserved below for future use.
 // ===================================================================
