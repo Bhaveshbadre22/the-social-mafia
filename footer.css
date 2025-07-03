@@ -16,7 +16,6 @@
     position: relative;
     max-width: 1280px;
     width: 100%;
-    margin: 0 auto;
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -48,7 +47,6 @@
 .right-blob {
     position: absolute;
     bottom: 0px;
-    right: -200px;
     background: radial-gradient(circle, var(--pink));
     opacity: 0.7;
     left: 90%;
@@ -360,7 +358,6 @@
 @media (max-width: 768px) {
     .foot-wrapper {
         padding: 40px 15px;
-        margin-right: 40px;
         width: 100%;
         max-width: 384px;
     }

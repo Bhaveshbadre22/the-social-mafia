@@ -78,15 +78,16 @@
     </div>
   </main>
 
-    <div class="stats-container">
+   <div class="stats-container">
+    <!-- NEW: Added data-value attribute -->
     <div class="stat-box">
-        <p class="stat-value">3.5M Views</p>
+        <p class="stat-value" data-value="3.5">0M Views</p>
     </div>
     <div class="stat-box">
-        <p class="stat-value">1M Engagements</p>
+        <p class="stat-value" data-value="1">0M Engagements</p>
     </div>
     <div class="stat-box">
-        <p class="stat-value">1M Likes</p>
+        <p class="stat-value" data-value="1">0M Likes</p>
     </div>
 </div>
 
@@ -136,13 +137,19 @@
     <div class="work-gallery">
         <!-- Card 1 -->
         <a href="#" class="work-item">
-            <img src="assets/sample-1.png" alt="Aqualogica sunscreen product shot" class="work-item-image">
+            <!-- NEW: This wrapper handles the rounded corners and image zoom -->
+            <div class="work-item-image-wrapper">
+                <img src="assets/sample-1.png" alt="Aqualogica sunscreen product shot" class="work-item-image">
+            </div>
             <p class="work-item-caption">Aqualogica</p>
         </a>
         
         <!-- Card 2 -->
         <a href="#" class="work-item">
-            <img src="assets/sample-2.png" alt="The Souled Store Pink Panther t-shirt" class="work-item-image">
+            <!-- NEW: This wrapper handles the rounded corners and image zoom -->
+            <div class="work-item-image-wrapper">
+                <img src="assets/sample-2.png" alt="The Souled Store Pink Panther t-shirt" class="work-item-image">
+            </div>
             <p class="work-item-caption">The Souled Store</p>
         </a>
     </div>
@@ -472,6 +479,334 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     initializeCarousel();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* ====================================================== */
+    /* === UNIVERSAL ON-SCROLL FADE-IN ANIMATION (REVISED) == */
+    /* ====================================================== */
+
+    // UPDATED: animateCounter now handles decimals from a data-attribute
+    const animateCounter = (element) => {
+        const target = parseFloat(element.dataset.value);
+        const textContent = element.textContent;
+        const suffix = textContent.substring(textContent.indexOf(target.toString().slice(-1)) + 1);
+        const duration = 2000; // 2 seconds
+        let start = null;
+
+        const step = (timestamp) => {
+            if (!start) start = timestamp;
+            const progress = Math.min((timestamp - start) / duration, 1);
+            
+            // Animate with one decimal place
+            const currentValue = (progress * target).toFixed(1);
+            element.textContent = currentValue + suffix;
+
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
+                // Ensure the final value is exact, especially for integers
+                element.textContent = target.toString() + suffix;
+            }
+        };
+        window.requestAnimationFrame(step);
+    };
+
+    const setupObserver = (elements, isGroup = false) => {
+        if (!elements || elements.length === 0) return;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed'); // Use a generic reveal class
+                    
+                    // Check if it's a stat-box to trigger the counter
+                    if (entry.target.classList.contains('stat-box')) {
+                        const numberElement = entry.target.querySelector('.stat-value');
+                        if (numberElement && numberElement.dataset.value) {
+                            animateCounter(numberElement);
+                        }
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.25, rootMargin: "0px 0px -50px 0px" });
+
+        elements.forEach((element, index) => {
+            if (isGroup) {
+                // Use the transition on the element itself for the stagger
+                element.style.transition = `opacity 0.6s ease ${index * 150}ms, transform 0.6s ease ${index * 150}ms`;
+            }
+            observer.observe(element);
+        });
+    };
+
+    // --- Animate Individual Elements (No Stagger) ---
+    // (No changes here)
+
+    // --- Animate Groups of Elements (with Stagger) ---
+    // ADDED `.stat-box` to this list
+    setupObserver(document.querySelectorAll(
+        '.callout, .service-card, .work-card, .how-card-wrapper, .blog-card, .testimonial-card, .feature-card, .stat-box, .story-vision-grid .section-tag, .story-vision-grid .text-column p'
+    ), true);
+
+
+    // ... (The rest of your existing script.js code) ...
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* ====================================================== */
+    /* === NEW: INTERACTIVE CAROUSEL CLASS ================ */
+    /* ====================================================== */
+    class Carousel {
+        constructor(element) {
+            this.container = element;
+            this.wrapper = this.container.querySelector('.carousel-wrapper');
+            this.slides = Array.from(this.wrapper.children);
+            this.prevButton = this.container.querySelector('.carousel-button.prev');
+            this.nextButton = this.container.querySelector('.carousel-button.next');
+            this.progressBar = this.container.querySelector('.progress-bar'); // Assumes progress bar is inside container
+
+            this.currentIndex = 0;
+            this.isDragging = false;
+            this.startPos = 0;
+            this.currentTranslate = 0;
+            this.prevTranslate = 0;
+            this.animationID = 0;
+            this.visibleSlides = 3; // Default to 3
+            this.realSlidesCount = this.slides.length;
+
+            this.init();
+        }
+
+        init() {
+            this.updateVisibleSlides();
+            this.setupClones();
+            this.addEventListeners();
+            this.setInitialPosition();
+            this.updateProgressBar();
+        }
+
+        setupClones() {
+            const clonesStart = this.slides.slice(-this.visibleSlides).map(slide => slide.cloneNode(true));
+            this.wrapper.prepend(...clonesStart);
+
+            const clonesEnd = this.slides.slice(0, this.visibleSlides).map(slide => slide.cloneNode(true));
+            this.wrapper.append(...clonesEnd);
+
+            // Re-select all slides including clones
+            this.slides = Array.from(this.wrapper.children);
+        }
+
+        addEventListeners() {
+            this.nextButton.addEventListener('click', () => this.moveToNext());
+            this.prevButton.addEventListener('click', () => this.moveToPrev());
+
+            this.wrapper.addEventListener('mousedown', (e) => this.dragStart(e));
+            this.wrapper.addEventListener('touchstart', (e) => this.dragStart(e), { passive: true });
+            
+            this.wrapper.addEventListener('mouseup', () => this.dragEnd());
+            this.wrapper.addEventListener('mouseleave', () => this.dragEnd());
+            this.wrapper.addEventListener('touchend', () => this.dragEnd());
+
+            this.wrapper.addEventListener('mousemove', (e) => this.drag(e));
+            this.wrapper.addEventListener('touchmove', (e) => this.drag(e), { passive: true });
+            
+            this.wrapper.addEventListener('transitionend', () => this.checkIndex());
+
+            window.addEventListener('resize', () => this.onResize());
+        }
+        
+        moveToNext() {
+            this.currentIndex++;
+            this.setSliderPosition();
+        }
+        
+        moveToPrev() {
+            this.currentIndex--;
+            this.setSliderPosition();
+        }
+        
+        setSliderPosition() {
+            this.wrapper.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+            this.currentTranslate = (this.currentIndex + this.visibleSlides) * -this.getSlideWidth();
+            this.wrapper.style.transform = `translateX(${this.currentTranslate}px)`;
+            this.updateProgressBar();
+        }
+
+        dragStart(e) {
+            this.isDragging = true;
+            this.startPos = this.getPositionX(e);
+            this.wrapper.classList.add('is-dragging');
+            this.animationID = requestAnimationFrame(() => this.animation());
+        }
+
+        drag(e) {
+            if (this.isDragging) {
+                const currentPosition = this.getPositionX(e);
+                this.currentTranslate = this.prevTranslate + currentPosition - this.startPos;
+            }
+        }
+        
+        dragEnd() {
+            if (!this.isDragging) return;
+            this.isDragging = false;
+            cancelAnimationFrame(this.animationID);
+            
+            const movedBy = this.currentTranslate - this.prevTranslate;
+            if (movedBy < -100) this.currentIndex++;
+            if (movedBy > 100) this.currentIndex--;
+            
+            this.wrapper.classList.remove('is-dragging');
+            this.setSliderPosition();
+        }
+
+        animation() {
+            if (this.isDragging) {
+                this.wrapper.style.transform = `translateX(${this.currentTranslate}px)`;
+                requestAnimationFrame(() => this.animation());
+            }
+        }
+
+        checkIndex() {
+            if (this.currentIndex >= this.realSlidesCount) {
+                this.currentIndex = 0;
+            } else if (this.currentIndex < 0) {
+                this.currentIndex = this.realSlidesCount - 1;
+            } else {
+                return;
+            }
+            this.wrapper.style.transition = 'none';
+            this.currentTranslate = (this.currentIndex + this.visibleSlides) * -this.getSlideWidth();
+            this.wrapper.style.transform = `translateX(${this.currentTranslate}px)`;
+            this.prevTranslate = this.currentTranslate;
+        }
+
+        updateProgressBar() {
+            const progress = ((this.currentIndex + 1) / this.realSlidesCount) * 100;
+            if(this.progressBar) {
+                this.progressBar.style.width = `${progress}%`;
+            }
+        }
+
+        onResize() {
+            this.updateVisibleSlides();
+            this.setInitialPosition();
+        }
+        
+        setInitialPosition() {
+            this.wrapper.style.transition = 'none';
+            this.currentTranslate = (this.currentIndex + this.visibleSlides) * -this.getSlideWidth();
+            this.prevTranslate = this.currentTranslate;
+            this.wrapper.style.transform = `translateX(${this.currentTranslate}px)`;
+        }
+        
+        updateVisibleSlides() {
+            if (window.innerWidth >= 1024) this.visibleSlides = 3;
+            else if (window.innerWidth >= 768) this.visibleSlides = 2;
+            else this.visibleSlides = 1;
+        }
+
+        getPositionX(e) {
+            return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        }
+        getSlideWidth() {
+            return this.slides[0].offsetWidth;
+        }
+    }
+
+
+    /* ====================================================== */
+    /* === UNIVERSAL ON-SCROLL FADE-IN ANIMATION ========== */
+    /* ====================================================== */
+    const setupObserver = (elements, isGroup = false) => {
+        if (!elements || elements.length === 0) return;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        elements.forEach((element, index) => {
+            if (isGroup) {
+                element.style.transition = `opacity 0.6s ease ${index * 150}ms, transform 0.6s ease ${index * 150}ms`;
+            }
+            observer.observe(element);
+        });
+    };
+
+    // --- Add brief section elements to the observer ---
+    setupObserver(document.querySelectorAll('.brief-section .heading-1, .brief-section .brief-paragraph, .carousel-container'), true);
+
+
+    /* ====================================================== */
+    /* === INITIALIZE THE CAROUSEL ========================== */
+    /* ====================================================== */
+    const carouselElement = document.querySelector('.carousel-container');
+    if (carouselElement) {
+        new Carousel(carouselElement);
+    }
+    
+    // ... (The rest of your existing script.js code) ...
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ... (All your existing setupObserver and other animation functions are here)
+
+    // --- Animate Groups of Elements (with stagger) ---
+    setupObserver(document.querySelectorAll(
+        '.callout, .service-card, .work-card, .how-card-wrapper, .blog-card, .testimonial-card, .feature-card, .stat-box, .story-vision-grid .section-tag, .story-vision-grid .text-column p, .work-item' // <-- ADDED .work-item HERE
+    ), true);
+
+
+    /* ====================================================== */
+    /* === NEW: PARALLAX SCROLL FOR GALLERY IMAGES ======== */
+    /* ====================================================== */
+    if (window.matchMedia("(min-width: 1025px)").matches) {
+        const galleryImages = document.querySelectorAll('.work-item-image');
+
+        const parallaxObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    window.addEventListener('scroll', handleParallaxScroll);
+                } else {
+                    window.removeEventListener('scroll', handleParallaxScroll);
+                }
+            });
+        }, { threshold: 0 });
+        
+        galleryImages.forEach(img => parallaxObserver.observe(img.parentElement));
+
+        function handleParallaxScroll() {
+            galleryImages.forEach(img => {
+                const rect = img.parentElement.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                // Check if the element is in the viewport
+                if (rect.top < windowHeight && rect.bottom > 0) {
+                    // Calculate progress (0 at bottom, 1 at top)
+                    const progress = 1 - ((rect.top + rect.height) / (windowHeight + rect.height));
+                    
+                    // Map progress to a translateY value (e.g., -10% to 10%)
+                    const translateY = (progress - 0.5) * 2 * -10; // -10% to 10%
+                    
+                    // Get current scale to preserve hover zoom
+                    const currentTransform = window.getComputedStyle(img).transform;
+                    const matrix = new DOMMatrix(currentTransform);
+                    const currentScale = matrix.a;
+                    
+                    img.style.transform = `translateY(${translateY}%) scale(${currentScale})`;
+                }
+            });
+        }
+    }
+    
+    // ... (The rest of your existing script.js code) ...
 });
 </script>
 

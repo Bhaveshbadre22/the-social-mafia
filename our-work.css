@@ -171,16 +171,12 @@ text-align: center;
   }
   
 
-  /* ------------------- */
-/*  4. Stats Section   */
-/* ------------------- */
-
+/* --- Stats Section (ANIMATED) --- */
 .stats-container {
     display: flex;
     justify-content: center;
-    gap: 30px; /* Adjust spacing between boxes */
-    /* margin-top: 80px; Space above this section */
-    flex-wrap: wrap; /* Allows boxes to wrap on smaller screens */
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
 .stat-box {
@@ -193,33 +189,50 @@ text-align: center;
     position: relative;
     z-index: 1;
 
-    /* Gradient Border Trick */
+    /* --- Gradient Border Trick --- */
+    /* UPDATED: Added a moving gradient for the border */
     background: linear-gradient(var(--color-nav-bg), var(--color-nav-bg)) padding-box,
-                linear-gradient(to right, #FFC402, #F20C89) border-box;
+                linear-gradient(135deg, #FFC402, #F20C89, #FFC402) border-box;
     border: 1px solid transparent;
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
 
-    /* For WebKit and better compatibility */
+    /* NEW: Prepare border for animation */
+    background-size: 200% 200%;
+    transition: background-position 0s ease, transform 0s ease;
+
+    /* --- On-Scroll Reveal Preparation --- */
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+/* For WebKit compatibility */
+.stat-box {
     -webkit-background-clip: padding-box, border-box;
     -webkit-mask-composite: destination-out;
 }
 
+/* NEW: The revealed state triggered by JS */
+.stat-box.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 .stat-value {
-    /* From your 'Title' style guide */
     font-family: var(--font-manrope);
     font-size: 26px;
-    font-weight: 600; /* Semibold */
+    font-weight: 600;
     color: var(--color-white);
 }
 
+/* --- HOVER STATE ANIMATIONS --- */
+@media (min-width: 1025px) {
+    .stat-box:hover {
+        transform: translateY(-8px); /* Lift effect */
+        background-position: 100% 0; /* Animate the border shimmer */
+    }
+}
 /* Add this to the end of your style.css */
 
-/* -------------------- */
-/*  5. Brief Section    */
-/* -------------------- */
-
+/* --- Brief Section (ANIMATED) --- */
 .brief-section {
     padding: 120px 40px;
     background-color: #0E0E0E;
@@ -232,9 +245,11 @@ text-align: center;
     font-style: italic;
     font-weight: 500;
     font-size: 42px;
-    margin-bottom: 0px;
+    margin-bottom: 20px; /* Adjusted for better spacing */
     color: var(--color-white);
 }
+
+
 
 .image-grid-container {
     display: flex;
@@ -245,20 +260,7 @@ text-align: center;
     text-align: center;
     padding: 2rem 0;
     width: 100%;
-    max-width: 1200px; /* Wider for multi-slide view */
-}
-
-.carousel-section h2 {
-    margin-bottom: 0.5rem;
-    font-size: 2.5rem;
-}
-
-.carousel-section p {
-    margin-bottom: 2rem;
-    color: #666;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 1200px;
 }
 
 /* --- Carousel Container and Wrapper --- */
@@ -266,25 +268,28 @@ text-align: center;
     position: relative;
     width: 90%;
     margin: auto;
-    overflow: hidden; /* This is crucial for hiding non-visible slides */
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10+ */
-    user-select: none; /* Standard syntax to prevent text selection on drag */
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .carousel-wrapper {
     display: flex;
-    /* Transition is set by JS for better control during drag vs. click */
+    /* Transition is set by JS for better control */
+}
+
+/* NEW: Class added by JS during drag for 1:1 movement */
+.carousel-wrapper.is-dragging {
+    cursor: grabbing;
+    transition: none !important; /* Important to override JS-set transition */
 }
 
 /* --- Individual Slide Styling (Responsive) --- */
 .carousel-slide {
     box-sizing: border-box;
-    flex-shrink: 0; /* Prevent slides from shrinking */
-    padding: 0 10px; /* Gutter between slides */
-    
-    /* Mobile First: 1 slide visible */
-    width: 100%;
+    flex-shrink: 0;
+    padding: 0 10px;
+    width: 100%; /* Mobile First */
 }
 
 .carousel-slide img {
@@ -293,22 +298,11 @@ text-align: center;
     display: block;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    pointer-events: none; /* Prevents browser's default image drag behavior */
+    pointer-events: none;
 }
 
-/* Tablet: 2 slides visible */
-@media (min-width: 768px) {
-    .carousel-slide {
-        width: 50%;
-    }
-}
-
-/* Desktop: 3 slides visible */
-@media (min-width: 1024px) {
-    .carousel-slide {
-        width: 33.333%;
-    }
-}
+@media (min-width: 768px) { .carousel-slide { width: 50%; } }
+@media (min-width: 1024px) { .carousel-slide { width: 33.333%; } }
 
 /* --- Navigation Buttons --- */
 .carousel-button {
@@ -330,20 +324,12 @@ text-align: center;
     transition: background-color 0.3s ease, transform 0.2s ease;
     z-index: 10;
 }
-
 .carousel-button:hover {
     background-color: rgba(0, 0, 0, 0.9);
     transform: translateY(-50%) scale(1.1);
 }
-
-.carousel-button.prev {
-    left: 0px;
-}
-
-.carousel-button.next {
-    right: 0px;
-}
-
+.carousel-button.prev { left: 0px; }
+.carousel-button.next { right: 0px; }
 @media (max-width: 1024px) {
     .carousel-button.prev { left: 10px; }
     .carousel-button.next { right: 10px; }
@@ -352,19 +338,22 @@ text-align: center;
 /* --- Progress Bar --- */
 .progress-bar-container {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background-color: rgba(255, 255, 255, 0.3);
+    bottom: -20px; /* Positioned just outside the carousel */
+    left: 10%;
+    width: 80%;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
     z-index: 5;
 }
 
 .progress-bar {
     height: 100%;
     background-color: white;
-    width: 0%; /* Initial width, controlled by JS */
-    transform-origin: left;
+    width: 0%; /* Initial width */
+    border-radius: 2px;
+    /* NEW: Add smooth transition to the progress bar */
+    transition: width 0.4s ease;
 }
 
 
@@ -374,11 +363,7 @@ text-align: center;
 /*  6. More Work Section  */
 /* -------------------- */
 
-/* ============================================= */
-/*          MORE WORK SECTION - FINAL CSS        */
-/* ============================================= */
-
-/* --- Desktop Styles --- */
+/* --- More Work Section (Corrected Layout & Animations) --- */
 .more-work-section {
     padding-top: 10px;
     padding-bottom: 80px;
@@ -398,92 +383,64 @@ text-align: center;
     width: 100%;
     text-decoration: none;
     color: inherit;
+    /* Transition for the card lift effect */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* NEW: The wrapper for the image */
+.work-item-image-wrapper {
+    border-radius: 28px; 
+    overflow: hidden; /* This masks the image zoom */
+    margin-bottom: 1rem; /* Space between image and caption */
 }
 
 .work-item-image {
     width: 100%;
-    height: auto;
+    height: auto; /* Restored to original */
     display: block;
-    border-radius: 28px; 
     object-fit: cover;
-    margin-bottom: 12px;
+    /* Prepare for parallax and zoom */
+    transform: scale(1.15); 
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .work-item-caption {
+    /* RESTORED: Back to original static positioning */
     font-size: 24px;
     font-weight: 500;
     color: #e0e0e0;
     text-align: left;
     line-height: 100%;
     letter-spacing: 0%;
+    /* No position, bottom, left, or z-index needed */
 }
 
 
-/* --- Responsive Styles (For screens 768px and smaller) --- */
-@media (max-width: 768px) {
-    .more-work-section {
-        /* Add some horizontal padding for mobile and adjust vertical */
-        padding: 60px 20px;
+/* --- HOVER STATE ANIMATIONS --- */
+@media (min-width: 1025px) {
+    .work-item:hover {
+        transform: translateY(-10px); /* Lift the whole card */
     }
-
-    .work-gallery {
-        /* Stack the items vertically */
-        flex-direction: column;
-        
-        /* Center the stacked items horizontally */
-        align-items: center;
-
-        /* Adjust spacing for mobile */
-        gap: 30px;
-        margin-top: 40px;
-    }
-
-    .work-item {
-        /* KEY FIX: Allow the container's height to be determined by its content */
-        height: auto; 
-    }
-
-    .work-item-caption {
-        /* Reduce font size for mobile */
-        font-size: 20px;
-
-        /* Center the caption to match the new layout */
-        text-align: center;
+    .work-item:hover .work-item-image {
+        transform: scale(1.2); /* Zoom the image inside its wrapper */
     }
 }
 
 
-/* --- New Responsive Styles for Mobile --- */
-
+/* --- Responsive Styles --- */
 @media (max-width: 768px) {
     .more-work-section {
-        /* Add some horizontal padding for mobile and adjust vertical */
         padding: 60px 20px;
     }
-
     .work-gallery {
-        /* This is the key change: stack the items vertically */
         flex-direction: column;
-        
-        /* Center the stacked items horizontally */
         align-items: center;
-
-        /* Adjust spacing for mobile */
         gap: 30px;
         margin-top: 40px;
     }
-
-    .work-item {
-        /* The max-width is still useful for tablets, but on mobile 
-           it will be constrained by the parent's padding. */
-    }
-
     .work-item-caption {
-        /* Reduce font size for mobile */
         font-size: 20px;
-
-        /* Center the caption to match the new layout */
-        text-align: center;
+        text-align: center; /* Center caption on mobile */
     }
 }
 
@@ -509,7 +466,6 @@ text-align: center;
         /* This can help with font rendering on mobile */
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        margin: 10px;
         overflow: visible;
     }
 

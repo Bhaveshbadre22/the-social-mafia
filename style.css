@@ -893,9 +893,8 @@ img.bw {
     .how-card {
         width: 100%;
     }
-
 /* ============================================== */
-/* === NEW HIGH-FIDELITY DOTS (NEUMORPHIC) ====== */
+/* === SIMPLE & CLEAN CAROUSEL DOTS (UPGRADED) == */
 /* ============================================== */
 
 /* The container for the dots */
@@ -903,7 +902,7 @@ img.bw {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 18px; /* A bit more space between the new dots */
+    gap: 16px; /* A bit of space between the dots */
     margin-top: 40px;
     height: 20px;
 }
@@ -920,19 +919,16 @@ img.bw {
 
 /* The INACTIVE dot style */
 .carousel-dot {
-    /* Set the background to a color slightly lighter than the main background */
-    background-color: #2a2a2a; 
-
+    background-color: #3a3a3a; /* A subtle, dark grey */
 }
 
 /* The ACTIVE dot style */
 .carousel-dot.active {
-    background-color: #ffffff;
-
-    transform: scale(1.1);
+    background-color: #ffffff; /* Bright white for high contrast */
+    transform: scale(1.1); /* A subtle "pop" to indicate it's active */
+    /* box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); A soft white glow */
 }
 }
-
 /* ====================================================== */
 /* === BLOGS SECTION STYLES (ENHANCED & RESPONSIVE) === */
 /* ====================================================== */
