@@ -122,183 +122,6 @@ body {
 }
 
 
-/* --- Header and Navigation --- */
-/* ================================================== */
-/*        MASTER RESPONSIVE HEADER - CSS STYLES       */
-/* ================================================== */
-
-/* --- 1. Desktop Header Styles (Default View) --- */
-.site-header {
-    width: 100%;
-    /* padding: 2.5rem 2rem 0; */
-    display: flex;
-    justify-content: center;
-    box-sizing: border-box;
-    position: relative; /* Needed for z-index context */
-    z-index: 100; /* Ensures header is above other page content */
-
-    padding: 2rem 1rem 0 1rem;
-}
-
-.main-nav {
-    display: flex;
-    justify-content: space-between; /* center all items */
-    align-items: center;
-    gap: 2rem; /* spacing between logo, links, and button */
-    flex-wrap: wrap; /* allow wrapping on smaller screens */
-    width: 100%;
-    max-width: 1023px;
-    height: 60px;
-    padding: 0 0.7rem 0 0.5rem;
-    background-color: #232323; /* from --color-nav-bg */
-    border-radius: 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.main-nav .logo img {
-    position: absolute;
-    height: 80px;
-    width: 80px;
-    top: 22px;
-    /* Vertically align the oversized logo nicely */
-    transform: translateY(-2px);
-}
-
-.main-nav .nav-links {
-    display: flex;
-    list-style: none;
-    gap: 3rem;
-    padding: 0;
-    margin: 0;
-}
-
-.main-nav .nav-links a {
-    text-decoration: none;
-    color: #FFFFFF; /* from --color-white */
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    padding: 0.5rem 0;
-    transition: color 0.3s ease;
-}
-
-.main-nav .nav-links a:hover,
-.main-nav .nav-links a.active {
-    color: #F20C89; /* from --color-pink */
-    font-weight: 600;
-}
-
-.main-nav .btn-primary {
-    background: linear-gradient(90deg, #FFC402, #F20C89); /* from --gradient */
-    color: #FFFFFF;
-    text-decoration: none;
-    padding: 0.6rem 1.6rem;
-    border-radius: 28px;
-    font-weight: 600;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    white-space: nowrap;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.main-nav .btn-primary:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(242, 12, 137, 0.3);
-}
-
-/* --- 2. Mobile Menu Styles (Hidden on Desktop) --- */
-
-/* The hamburger button itself */
-.mobile-menu-toggle {
-    display: none; /* Crucial: hidden on desktop */
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 24px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: 1001; /* Must be on top of the mobile menu */
-}
-
-.mobile-menu-toggle span {
-    width: 30px;
-    height: 3px;
-    background-color: #FFFFFF;
-    border-radius: 10px;
-    transition: all 0.3s ease-in-out;
-}
-
-/* The full-screen menu overlay */
-.mobile-nav-menu {
-    display: none; /* Crucial: hidden on desktop */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #0e0e0e;
-    z-index: 1000;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-}
-
-.mobile-nav-menu a {
-    color: #FFFFFF;
-    text-decoration: none;
-    font-size: 1.8rem;
-    font-weight: 500;
-    font-family: 'Poppins', sans-serif;
-}
-
-.mobile-nav-menu a.active {
-    color: #F20C89;
-}
-
-.mobile-nav-menu .btn {
-    background-color: #232323;
-    margin-top: 1rem;
-    transform: scale(1.2); /* Make button slightly larger in the menu */
-}
-
-/* Class added by JavaScript when the menu is open */
-body.mobile-menu-open {
-    overflow: hidden; /* Prevents scrolling the page behind the menu */
-}
-
-/* Animation for hamburger -> 'X' */
-body.mobile-menu-open .mobile-menu-toggle span:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
-}
-body.mobile-menu-open .mobile-menu-toggle span:nth-child(2) {
-    opacity: 0;
-}
-body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
-}
-
-/* --- 3. Responsive Media Query --- */
-@media (max-width: 1024px) {
-    /* Hide desktop elements */
-    .main-nav .nav-links,
-    .main-nav > .btn-primary {
-        display: none;
-    }
-
-    .main-nav .logo img {
-        top: 8px;
-    }
-
-    /* Show mobile hamburger */
-    .mobile-menu-toggle {
-        display: flex;
-    }
-}
-
 /* --- Hero Section --- */
 .hero-section {
     position: relative;
@@ -427,18 +250,19 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
 }
 
 
-/* ============================================== */
-/* === NEW: TESTIMONIALS SECTION STYLES START === */
-/* ============================================== */
-/* --- Main Containers & Wrappers (Unchanged) --- */
-.test-container {
+/* ====================================================== */
+/* === TESTIMONIALS SECTION (ENHANCED & RESPONSIVE) === */
+/* ====================================================== */
+
+/* --- Main Containers & Wrappers --- */
+.test-container, .testimonials-wrapper {
     background-color: #0e0e0e;
+}
+.test-container {
     border-top-right-radius: 65.65px;
     border-top-left-radius: 65.65px;    
 }
-
 .testimonials-wrapper {
-    background-color: #0e0e0e;
     padding: 80px 0;
     display: flex;
     flex-direction: column;
@@ -446,60 +270,17 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     width: 100%;
 }
 
-/* --- Logo Ticker (Unchanged) --- */
-.logo-ticker-wrapper {
-    padding-top: 60px;
-}
-
-.logo-ticker-wrapper {
-    width: 100%;
-    overflow: hidden;
-    margin-bottom: 80px;
-}
-
-.logo-ticker {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 120px;
-    white-space: nowrap;
-}
-
-.logo-ticker img {
-    height: 50px;
-    width: 80px;
-    flex-shrink: 0;
-    object-fit: contain;
-}
-
-.logo-image {
-    height: 50px;
-    width: 60px;
-    margin: 0;
-}
-
-.logo-image.aq {
-    margin: 0;
-}
-
-.logo-image.hm {
-    margin: 0;
-}
-
-
-/* --- Section Heading (Unchanged) --- */
+/* --- Section Heading --- */
 .section-heading {
     font-family: 'Playfair Display', serif;
     font-weight: 500;
     font-style: italic;
     font-size: 40px;
     text-align: center;
-    line-height: 100%;
-    letter-spacing: 0%;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 }
 
-/* --- Cards Container (Unchanged) --- */
+/* --- Cards Container --- */
 .cards-container {
     display: flex;
     justify-content: center;
@@ -508,117 +289,135 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     width: 100%;
     max-width: 1240px;
     margin: 0 auto;
+    perspective: 1000px; 
 }
 
-
-/* 
-=====================================================
---- UPDATED TESTIMONIAL CARD STYLES START HERE ---
-=====================================================
-*/
-
+/* --- Testimonial Card Base Styles --- */
 .testimonial-card {
     position: relative;
     width: 380px;
     height: 480px;
     border-radius: 20px;
-    overflow: hidden; /* Crucial for border-radius and containing elements */
+    overflow: hidden;
     color: #FFFFFF; 
-    flex-shrink: 0;
-    background-color: #0e0e0e; /* Fallback color */
-    margin-bottom: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* Added a subtle shadow */
+    background-color: #0e0e0e;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    
+    /* FIX: Ensures border-radius is respected during 3D transform */
+    transform-style: preserve-3d;
+
+    /* UPDATED: Faster transition for the reset animation */
+    transition: transform 0.3s ease-out, opacity 0.5s ease;
 }
 
-.testimonial-card > img { /* Target the direct child image */
+.testimonial-card > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
-    transition: transform 0.4s ease; /* Smooth zoom on hover */
-}
-
-/* Optional: Add slight zoom on hover for a dynamic feel */
-.testimonial-card:hover > img {
-    transform: scale(1.05);
+    /* UPDATED: Faster, snappier transition */
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 img.bw {
     filter: grayscale(100%);
+    /* UPDATED: Faster filter transition */
+    transition: filter 0.3s ease;
 }
 
-/* --- The Glassmorphism Overlay (The biggest change) --- */
+/* --- The Glassmorphism Overlay --- */
 .card-content-overlay {
     position: absolute;
-    bottom: 0px; /* Position inset from the card edges */
-    left: 0px;
-    width:91%;
-    max-width: 350px;
-    /* The Glassmorphism Effect */
-    background: rgba(30, 30, 30, 0.2); /* Semi-transparent background */
-    -webkit-backdrop-filter: blur(12px); /* Blur for Safari */
-    backdrop-filter: blur(12px); /* The main blur effect */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
-    
-    border-radius: 16px; /* Rounded corners for the overlay itself */
-    padding: 15px;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: rgba(30, 30, 30, 0.45);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 25px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    /* UPDATED: Faster, snappier transition */
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px; /* Adjusted spacing */
+.card-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 12px; 
+}
+.card-title { 
+    font-family: 'Manrope', sans-serif; 
+    font-weight: 600; 
+    font-size: 26px; 
+    margin: 0; 
+    line-height: 1.2; 
+}
+.card-tag { 
+    font-family: 'Manrope', sans-serif; 
+    font-size: 14px; 
+    font-weight: 500; 
+    padding: 7px 14px; 
+    border-radius: 50px; 
+    color: #FFFFFF; 
+    white-space: nowrap; 
+    flex-shrink: 0; 
+}
+.tag-orange, .tag-pink { 
+    background: linear-gradient(90deg, #FB8A2C, #F20C89); 
+}
+.card-text { 
+    font-family: 'Manrope', sans-serif; 
+    font-weight: 400; 
+    font-size: 15px; 
+    line-height: 1.6; 
+    margin: 0; 
+    color: rgba(255, 255, 255, 0.9); 
 }
 
-.card-title {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 600;
-    font-size: 26px;
-    margin: 0;
-    line-height: 1.2;
+
+/* ---
+   1. DESKTOP-ONLY ANIMATIONS (3D Tilt Effect)
+--- */
+@media (min-width: 1025px) {
+    .testimonial-card:hover img.bw {
+        filter: grayscale(0%);
+    }
+
+    .testimonial-card.is-tilting .card-content-overlay {
+        /* UPDATED: Less aggressive "lift" for subtlety */
+        transform: translateZ(30px); 
+    }
+    .testimonial-card.is-tilting > img {
+        /* UPDATED: Less aggressive push/zoom for subtlety */
+        transform: translateZ(-15px) scale(1.03); 
+    }
 }
 
-.card-tag {
-    font-family: 'Manrope', sans-serif;
-    font-size: 14px;
-    font-weight: 500; /* Adjusted weight for clarity */
-    padding: 7px 14px; /* Adjusted padding for pill shape */
-    border-radius: 50px; /* Makes the tag a pill shape */
-    color: #FFFFFF;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-/* Updated Gradient for the tags */
-.tag-orange,
-.tag-pink {
-    background: linear-gradient(90deg, #FB8A2C, #F20C89);
-}
-
-.card-text {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 400; /* Increased weight for readability */
-    font-size: 15px;  /* Slightly smaller to match target */
-    line-height: 1.6; /* Increased for better readability */
-    margin: 0;
-    color: rgba(255, 255, 255, 0.9); /* Softer white */
+/* ---
+   2. MOBILE & TABLET ANIMATION STATE
+--- */
+.testimonial-card-hidden {
+    opacity: 0;
+    transform: translateY(50px);
 }
 
 /* ============================================ */
 /* === NEW: TESTIMONIALS SECTION STYLES END === */
 
-/* ============================================== */
-/* === NEW: SERVICES SECTION STYLES START ======= */
-/* ============================================== */
+/* ====================================================== */
+/* === SERVICES SECTION (ENHANCED & RESPONSIVE) ======= */
+/* ====================================================== */
 
 .services-section {
     background-color: #0e0e0e;
-    padding: 100px 0 20px;
+    padding: 40px 0 60px;
     text-align: center;
 }
 
+/* ... .section-subheading styles remain the same ... */
 .section-subheading {
     font-family: 'Manrope', sans-serif;
     font-weight: 400;
@@ -627,9 +426,7 @@ img.bw {
     margin-top: -20px;
     margin-bottom: 60px;
     letter-spacing: 0%;
-    overflow: visible;     
-    /* width: 1100px;    optional: hides overflow text */
-    
+    overflow: visible;
 }
 
 .services-cards {
@@ -646,16 +443,18 @@ img.bw {
     position: relative;
     width: 350px;
     box-sizing: border-box;
-    height: auto; /* match mockup */
+    height: auto;
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 20px;
     padding: 32px 28px;
     color: #FFFFFF;
     overflow: hidden;
     background: rgba(255,255,255,0.03);
+    /* --- NEW: Default transition for all animations --- */
+    transition: transform 0.4s ease, border-color 0.4s ease, opacity 0.5s ease;
 }
 
-/* soft colourful blur */
+/* --- The background blur effect --- */
 .service-card::before {
     content: "";
     position: absolute;
@@ -666,8 +465,8 @@ img.bw {
     background: radial-gradient(circle at 20% 20%, rgba(255,196,2,0.5) 0%, rgba(242,12,137,0.35) 45%, transparent 70%);
     filter: blur(80px);
     z-index: 0;
+    transition: transform 0.5s ease-out;
 }
-/* Slightly shift hue on later cards for variety */
 .services-cards .service-card:nth-child(2)::before {
     background: radial-gradient(circle at 80% 20%, rgba(255,196,2,0.5) 0%, rgba(242,12,137,0.35) 45%, transparent 70%);
 }
@@ -687,56 +486,69 @@ img.bw {
     justify-content: space-between;
     align-items: center;
     text-align: left;
+    transition: color 0.4s ease;
 }
 
 .gradient-dot {
     display: flex;
     justify-content: center;
     align-items: center;
-    display: inline-block;
     width: 46px;
     height: 46px;
     border-radius: 50%;
     background: linear-gradient(135deg, #FFC402, #F20C89);
     flex-shrink: 0;
-    padding: 2px;
     margin-left: 8px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.gradient-dot img {
-    justify-self: center;
-    align-self: center;
+.gradient-dot img { /* No properties needed here */ }
+.service-card hr { border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 0 0 24px; }
+.service-text { font-family: 'Manrope', sans-serif; font-weight: 300; font-size: 18px; line-height: 1.6; margin: 0; text-align: left; letter-spacing: 0%; margin-bottom: 7px; }
+
+
+/* ---
+   1. DESKTOP-ONLY ANIMATIONS (Hover Effects)
+   These rules will ONLY apply on screens wider than 1024px
+--- */
+@media (min-width: 1025px) {
+    .service-card:hover {
+        transform: translateY(-10px);
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+    .service-card:hover::before {
+        transform: scale(1.15);
+    }
+    .service-card:hover .service-title {
+        background: linear-gradient(90deg, #FFC402, #F20C89);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+    }
+    .service-card:hover .gradient-dot {
+        transform: scale(1.1);
+    }
 }
 
-.service-card hr {
-    border: none;
-    border-top: 1px solid rgba(255,255,255,0.2);
-    margin: 0 0 24px;
+
+/* ---
+   2. MOBILE & TABLET ANIMATION STATE
+   The class that will be controlled by JavaScript
+   (This can be shared with the .work-card if desired, but we'll keep it separate for clarity)
+--- */
+.service-card-hidden {
+    opacity: 0;
+    transform: translateY(50px); /* Start 50px lower */
 }
 
-.service-text {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 1.6;
-    margin: 0;
-    text-align: justify;
-    letter-spacing: 0%;
-    margin-bottom: 7px;
-}
-
-/* ============================================ */
-/* === NEW: SERVICES SECTION STYLES END ======= */
-/* ============================================ */
-
-/* ============================================== */
-/* === NEW: WORK SECTION STYLES START =========== */
-/* ============================================== */
+/* ====================================================== */
+/* === WORK SECTION STYLES (CORRECTED FOR MOBILE) ======= */
+/* ====================================================== */
 
 .work-section {
     background-color: #0e0e0e;
-    padding: 20px 0 20px;
-    /* margin: 10px; */
+    padding: 20px 0 60px;
     text-align: center;
 }
 .work-section .section-subheading {
@@ -761,7 +573,8 @@ img.bw {
     overflow: hidden;
     width: 100%;
     height: 380px;
-    color: #FFFFFF; /* ensure link text white */
+    color: #FFFFFF;
+    transition: transform 0.4s ease, opacity 0.5s ease;
 }
 
 .work-card img {
@@ -769,6 +582,7 @@ img.bw {
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .work-overlay {
@@ -777,7 +591,10 @@ img.bw {
     left: 0;
     right: 0;
     bottom: 0;
-    pointer-events: none; /* let bar handle interaction */
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .work-bar {
@@ -790,55 +607,70 @@ img.bw {
     justify-content: space-between;
     align-items: center;
     border-radius: 14px;
-    background: rgba(128, 127, 127, 0.72);
-    backdrop-filter: blur(2px);
-    border: 1px solid #ffffff;
+    background: rgba(30, 30, 30, 0.5);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* By default, the bar is hidden */
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
 }
 
-.work-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
+/* --- (These styles remain the same) --- */
+.work-info { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.work-metrics { display: flex; gap: 24px; }
+.work-title { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 26px; margin: 0; color: #FFFFFF; }
+.work-metric { font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 300; color: #FFFFFF; opacity: 0; transform: translateY(15px); transition: opacity 0.4s ease, transform 0.4s ease; }
+.arrow-container { display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; background-color: white; border-radius: 50%; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.work-arrow img { width: 20px; height: 20px; filter: brightness(0); }
+
+
+/* ---
+   1. DESKTOP-ONLY HOVER ANIMATIONS
+--- */
+@media (min-width: 1025px) {
+    .work-card:hover { transform: scale(1.02); }
+    .work-card:hover img { transform: scale(1.1) rotate(-3deg); }
+    .work-card:hover .work-overlay { opacity: 1; }
+    .work-card:hover .work-bar { transform: translateY(0); opacity: 1; }
+    .work-card:hover .work-metric { opacity: 0.9; transform: translateY(0); transition-delay: 0.2s; }
+    .work-card:hover .work-metric:nth-child(2) { transition-delay: 0.3s; }
+    .work-card:hover .arrow-container { transform: translateX(8px) rotate(360deg); }
 }
 
-.work-metrics {
-    display: flex;
-    gap: 24px;
+
+/* ---
+   2. MOBILE & TABLET STYLES AND ANIMATIONS
+--- */
+
+/* The class for the initial hidden state (controlled by JS) */
+.card-hidden {
+    opacity: 0;
+    transform: translateY(50px);
 }
 
+/* NEW: Styles for mobile/tablet to make info visible without hover */
+@media (max-width: 1024px) {
+    /* When the card is not hidden (i.e., it has scrolled into view) */
+    .work-card:not(.card-hidden) .work-overlay {
+        opacity: 1;
+        transition-delay: 150ms; /* Let the card appear first */
+    }
 
+    .work-card:not(.card-hidden) .work-bar {
+        transform: translateY(0);
+        opacity: 1;
+        transition-delay: 150ms; /* Let the card appear first */
+    }
 
-.work-title {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 700;
-    font-size: 26px;
-    margin: 0;
-    color: #FFFFFF;
-}
-
-.work-metric {
-    font-family: 'Manrope', sans-serif;
-    font-size: 14px;
-    font-weight: 300;
-    color: #FFFFFF;
-    opacity: 0.9;
-}
-
-.arrow-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 32px;
-    height: 32px;
-    background-color: white;
-    border-radius: 50%;
-}
-
-.work-arrow img {
-    width: 20px;
-    height: 20px;
-    filter: brightness(0);
+    .work-card:not(.card-hidden) .work-metric {
+        opacity: 0.9;
+        transform: translateY(0);
+        transition-delay: 300ms; /* Staggered reveal for the first metric */
+    }
+    .work-card:not(.card-hidden) .work-metric:nth-child(2) {
+        transition-delay: 400ms; /* Staggered reveal for the second metric */
+    }
 }
 
 .view-all-btn {
@@ -854,15 +686,30 @@ img.bw {
     border-radius: 28px;
     text-decoration: none;
     z-index: 1;
+    overflow: hidden;
+
+    /* --- MODIFIED: Added box-shadow to the transition --- */
+    transition: transform 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
 }
 
+.view-all-btn:hover {
+    transform: translateY(-4px);
+    color: #fff;
+
+    /* --- NEW: Add a rich, colored shadow on hover --- */
+    /* This shadow uses the pink from your gradient to create a "glow" effect */
+    box-shadow: 0px 15px 25px -5px rgba(242, 12, 137, 0.3);
+}
+
+/* --- The Border Element --- */
 .view-all-btn::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: 28px;
     padding: 2px;
-    background: linear-gradient(135deg, #FFC402, #F20C89);
+    background: linear-gradient(135deg, #FFC402, #F20C89, #FFC402);
+    background-size: 200% 200%;
     -webkit-mask: 
         linear-gradient(#fff 0 0) content-box, 
         linear-gradient(#fff 0 0);
@@ -872,6 +719,30 @@ img.bw {
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
     z-index: -1;
+    transition: background-position 0.5s ease;
+}
+
+.view-all-btn:hover::before {
+    background-position: 100% 0;
+}
+
+/* --- The Fill Element --- */
+.view-all-btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #FFC402, #F20C89);
+    border-radius: 28px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.view-all-btn:hover::after {
+    opacity: 1;
 }
 
 
@@ -879,136 +750,199 @@ img.bw {
 /* === NEW: WORK SECTION STYLES END =========== */
 
 /* ============================================== */
-/* === NEW: HOW WE DO IT SECTION STYLES START === */
+/* === HOW WE DO IT SECTION STYLES (REVISED) ==== */
 /* ============================================== */
 
 .how-section {
-  background-color: #0e0e0e;
-  padding: 50px 0;
-  text-align: center;
+    background-color: #0e0e0e;
+    padding: 0px 20px 40px;
+    text-align: center;
 }
 
+/* ---
+   Desktop Styles (Static Grid)
+--- */
+.how-carousel-container {
+    max-width: 1240px;
+    margin: 60px auto 0;
+}
+
+.how-carousel-track {
+    display: flex;
+    justify-content: center;
+    /* flex-wrap: wrap; */
+    gap: 40px;
+}
+
+/* MODIFIED: The wrapper is now the primary positioning context. */
 .how-card-wrapper {
-  display: flex;
-  flex-direction: row; /* default for desktop */
-  gap: 20px; /* optional spacing */
-  flex-wrap: wrap; /* allows wrapping if needed */
-  position: relative;
-  overflow: visible;
+    position: relative; /* Crucial: This becomes the anchor for the step number. */
+    display: flex;
+    justify-content: center;
+    /* NEW: Add padding to the top to make space for the step number to sit. */
+    padding-top: 35px; /* Half the height of the step number (70px / 2). */
 }
 
-.how-cards {
-  display: flex;
-  justify-content: center;
-  flex-wrap: nowrap;
-  gap: 40px;
-  max-width: 1240px;
-  margin: 60px auto 0;
-  padding: 0 20px;
+/* Mobile-only elements are hidden on desktop */
+.carousel-dots {
+    display: none;
 }
 
+/* --- Card Content --- */
 .how-card {
-  position: relative;
-  width: 100%;
-  max-width: 365px;
-  min-width: 270px;
-  height: auto;
-  border-radius: 20px;
-  overflow: hidden;
-  padding: 80px 32px 40px;
-  background: #0b0b0b;
-  color: #FFFFFF;
-  border: 1px solid #646262;
+    position: relative;
+    width: 325px;
+    height: auto;
+    border-radius: 20px;
+    overflow: hidden;
+    /* MODIFIED: Reduced top padding because the card itself is now lower. */
+    padding: 45px 32px 40px; 
+    background: #0b0b0b;
+    color: #FFFFFF;
+    border: 1px solid #646262;
+    z-index: 1; /* Sits below the step number. */
 }
 
 .how-card::before {
-  content: "";
-  position: absolute;
-  top: -20%;
-  left: -20%;
-  width: 140%;
-  border-radius: 30px;
-  filter: blur(120px);
-  z-index: 0;
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    border-radius: 30px;
+    filter: blur(120px);
+    z-index: 0;
 }
 
 .how-card * {
-  position: relative;
-  z-index: 1;
+    position: relative;
+    z-index: 1;
 }
 
+/* MODIFIED: The step number is positioned relative to the wrapper, not the card. */
 .how-step {
-  position: absolute;
-  top: -32px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background-color: #1B1B1B;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Manrope', sans-serif;
-  font-size: 33px;
-  font-weight: 800;
-  color: #FFFFFF;
-  z-index: 2;
+    position: absolute;
+    /* NEW: Positions the circle at the very top of the wrapper's padding area. */
+    top: 0; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #1B1B1B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    font-size: 33px;
+    font-weight: 800;
+    color: #FFFFFF;
+    /* NEW: Ensures the step number sits on top of the card. */
+    z-index: 2; 
 }
-
 
 .how-title {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 600;
-  font-size: 22px;
-  margin: 0 0 24px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    margin: 0 0 24px;
 }
 
 .how-text {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 1.6;
-  margin: 0;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
 }
 
-.card-vector-1 {
+.card-vector-1, .card-vector-2 {
     position: absolute;
-    top: -40%;
-    left: -20px;
-    width: 120px;
-    height: 600px;
     opacity: 1;
     z-index: 0;
     pointer-events: none;
-    transform: scale(3); /* 1.0 = original, 1.5 = 150% */
-}
-
-.card-vector-2 {
-    position: absolute;
-    top: -40%;
-    right: -20px;
+    transform: scale(3);
     width: 120px;
     height: 600px;
-    opacity: 1;
-    z-index: 0;
-    pointer-events: none;
-    transform: scale(3); /* 1.0 = original, 1.5 = 150% */
+}
+.card-vector-1 { top: -40%; left: -20px; }
+.card-vector-2 { top: -40%; right: -20px; }
+
+/* ---
+   Mobile Styles (Carousel Override)
+--- */
+@media (max-width: 768px) {
+    .how-carousel-container {
+        max-width: 100%;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .how-carousel-track {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        gap: 0;
+        transition: transform 0.5s ease-in-out;
+        cursor: grab;
+    }
+
+    .how-card-wrapper {
+        width: 100%;
+        flex-shrink: 0;
+        padding: 35px 20px 0; /* Gutter so card isn't edge-to-edge, keeping top padding */
+        box-sizing: border-box;
+    }
+
+    .how-card {
+        width: 100%;
+    }
+
+/* ============================================== */
+/* === NEW HIGH-FIDELITY DOTS (NEUMORPHIC) ====== */
+/* ============================================== */
+
+/* The container for the dots */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px; /* A bit more space between the new dots */
+    margin-top: 40px;
+    height: 20px;
 }
 
+/* Base style for ALL dots */
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    /* Smooth transition for all property changes */
+    transition: all 0.4s ease-in-out;
+}
 
+/* The INACTIVE dot style */
+.carousel-dot {
+    /* Set the background to a color slightly lighter than the main background */
+    background-color: #2a2a2a; 
 
+}
 
-/* ============================================ */
-/* === NEW: HOW WE DO IT SECTION STYLES END === */
+/* The ACTIVE dot style */
+.carousel-dot.active {
+    background-color: #ffffff;
 
-/* ============================================== */
-/* === UPDATED: BLOGS SECTION STYLES START ====== */
-/* ============================================== */
+    transform: scale(1.1);
+}
+}
+
+/* ====================================================== */
+/* === BLOGS SECTION STYLES (ENHANCED & RESPONSIVE) === */
+/* ====================================================== */
 
 .blog-section {
     background-color: #0e0e0e;
-    padding: 60px 20px 140px;
+    padding: 0px 20px 60px;
     text-align: center;
 }
 
@@ -1040,6 +974,9 @@ img.bw {
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    /* --- NEW: Add transition for the scroll-in animation --- */
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .blog-card img {
@@ -1057,9 +994,8 @@ img.bw {
 .blog-label {
     position: absolute;
     top: -1px;
-    left: 0px;
-    background: #FFFFFF;
-    color: #000000;
+    left: -1px;
+    color: #FFFFFF;
     font-family: 'Manrope', sans-serif;
     font-size: 18px;
     font-weight: 300;
@@ -1071,6 +1007,10 @@ img.bw {
     white-space: normal;
     margin-bottom: 9px;
     letter-spacing: 0%;
+    background: rgba(30, 30, 30, 0.3);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .blog-arrow {
@@ -1092,6 +1032,7 @@ img.bw {
     height: 18px;
 }
 
+/* --- "See All" Button Base Styles --- */
 .see-all-btn {
     display: inline-block;
     font-family: 'Manrope', sans-serif;
@@ -1104,385 +1045,75 @@ img.bw {
     text-decoration: none;
     position: relative;
     z-index: 1;
+    overflow: hidden;
+    /* --- NEW: Default transition for all effects --- */
+    transition: transform 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, opacity 0.5s ease;
+}
+
+.see-all-btn::before,
+.see-all-btn::after {
+    content: "";
+    position: absolute;
+    border-radius: 28px;
+    z-index: -1;
 }
 
 .see-all-btn::before {
-    content: "";
-    position: absolute;
     inset: 0;
-    border-radius: 28px;
     padding: 2px;
-    background: linear-gradient(135deg, #FFC402, #F20C89);
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
+    background: linear-gradient(135deg, #FFC402, #F20C89, #FFC402);
+    background-size: 200% 200%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
-    z-index: -1;
+    transition: background-position 0.5s ease;
+}
+
+.see-all-btn::after {
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #FFC402, #F20C89);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+/* ---
+   1. DESKTOP-ONLY HOVER ANIMATIONS
+   These rules will ONLY apply on screens wider than 1024px
+--- */
+@media (min-width: 1025px) {
+    .see-all-btn:hover {
+        transform: translateY(-4px);
+        color: #1c1c1c;
+        box-shadow: 0px 15px 25px -5px rgba(242, 12, 137, 0.3);
+    }
+    .see-all-btn:hover::before {
+        background-position: 100% 0;
+    }
+    .see-all-btn:hover::after {
+        opacity: 1;
+    }
+}
+
+
+/* ---
+   2. MOBILE & TABLET ANIMATION STATES
+   These classes are controlled by JavaScript
+--- */
+.blog-card-hidden,
+.blog-btn-hidden {
+    opacity: 0;
+    transform: translateY(50px);
 }
 
 
 /* =============================================== */
 
-/* =================================================================== */
-/*                     COMPLETE FOOTER STYLES                          */
-/*         (Includes Desktop and all Responsive Variations)            */
-/* =================================================================== */
 
-/* --- 1. Main Footer Container and Decorative Blobs --- */
-
-.foot-wrapper {
-    position: relative;
-    background-color: #0E0E0E;
-    padding: 60px 20px; /* Add horizontal padding for safety */
-    overflow: visible; /* Contains the blobs */
-}
-
-.footer-section {
-    position: relative;
-    max-width: 1280px;
-    width: 100%;
-    margin: 0 auto;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-radius: 25px;
-    padding: 60px;
-    display: grid;
-    grid-template-columns: 1.5fr 1.5fr 1.5fr;
-    gap: 80px;
-    z-index: 2;
-    overflow: hidden;
-}
-
-.footer-blob {
-    position: absolute;
-    width: 350px;
-    height: 350px;
-    border-radius: 50%;
-    filter: blur(140px);
-    z-index: 0;
-}
-
-.left-blob {
-    top: 0;
-    left: -50px;
-    background: radial-gradient(circle, #FB8A2C);
-    opacity: 1;
-}
-
-.right-blob {
-    bottom: 0px;
-    right: 0px;
-    background: radial-gradient(circle, var(--pink));
-    opacity: 0.7;
-}
-
-/* --- 2. Column 1: FAQ --- */
-
-.faq-column h2 {
-    font-size: 40px;
-    font-weight: 500;
-    color: var(--pink);
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 1;
-    font-family: 'Manrope';
-    line-height: 100%;
-    letter-spacing: 0%;
-    padding-left: 10px;
-}
-
-/* MODIFIED: The .faq-item is now just a container. */
-.faq-item {
-    margin: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    overflow: hidden; /* Important: keeps content from spilling out during animation */
-}
-
-/* NEW: This div now holds your flex properties. */
-.faq-question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 0; /* Your vertical padding */
-    cursor: pointer;
-}
-
-/* MODIFIED: Selector changed from .faq-item p */
-.faq-question p {
-    font-size: 18px;
-    font-weight: 300;
-    padding-right: 20px;
-    color: var(--white);
-    margin: 0;
-    padding-left: 10px; /* Matched your h2 padding */
-}
-
-/* MODIFIED: Selector changed from .faq-item i */
-.faq-question i {
-    font-size: 18px;
-    color: var(--white);
-    flex-shrink: 0; /* Keeps icon from squishing */
-    padding-right: 10px; /* Added padding for spacing */
-    transition: transform 0.3s ease; /* Animate the icon rotation */
-}
-
-/* --- NEW CSS FOR THE FUNCTIONALITY --- */
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease-out;
-}
-
-.faq-answer p {
-    font-family: 'Manrope';
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.85); /* Slightly dimmer for contrast */
-    margin: 0;
-    padding: 5px 10px 25px 10px; /* Top, Right, Bottom, Left */
-}
-
-/* --- Active State (When FAQ is open) --- */
-
-/* When .faq-item has class 'active', the answer becomes visible */
-.faq-item.active .faq-answer {
-    max-height: 300px; /* Adjust if your answers are very long */
-}
-
-/* Rotate the icon when the FAQ is open */
-.faq-item.active .faq-question i {
-    transform: rotate(180deg);
-}
-
-/* Optional: Make the bottom border bolder when open */
-.faq-item.active {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-
-/* --- 3. Column 2: Collaborate & Links --- */
-
-.links-column {
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
-    padding-left: 40px;
-    position: relative;
-    z-index: 1;
-    font-family: 'Manrope';
-    font-weight: 500;
-    font-size: 40px;
-    line-height: 100%;
-    letter-spacing: 0%;
-
-}
-
-.links-column h2 {
-    font-size: 40px;
-    font-weight: 500;
-    color: var(--yellow);
-    margin-bottom: 30px;
-    white-space: nowrap; 
-    overflow: hidden;     
-    text-overflow: ellipsis; 
-}
-
-.contact-info, .main-links, .socials {
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    padding-bottom: 30px;
-}
-
-.socials {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.contact-info p {
-    font-size: 12px;
-    font-weight: 300;
-    color: var(--white);
-    text-decoration: none;
-    display: block;
-    line-height: 1.6;
-    margin-bottom: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.contact-heading {
-    color: #FFC402;
-    font-weight: 500;
-    margin-bottom: 6px;
-    font-family: 'Manrope';
-    font-weight: 500;
-    font-size: 17.9px;
-    line-height: 100%;
-    letter-spacing: 0%;
-
-}
-
-.main-links a {
-    font-size: 18px;
-    font-weight: 500;
-    color: #BE9203;
-    text-decoration: none;
-    display: block;
-    line-height: 1.6;
-    margin-bottom: 12px;
-    transition: color 0.3s ease;
-}
-
-.main-links a:hover {
-    color: var(--yellow);
-}
-
-.socials h3 {
-    font-size: 18px;
-    font-weight: 500;
-    color: #BE9203;
-    margin-bottom: 10px;
-    justify-self: center;
-}
-
-.social-icons {
-    display: flex;
-    gap: 10px;
-    justify-content: space-evenly;
-}
-
-.social-icons a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    transition: transform 0.3s ease;
-}
-
-.social-icons a img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-}
-
-.social-icons a:hover {
-    transform: scale(1.1);
-}
-
-/* --- 4. Column 3: Ad Card --- */
-
-.ad-card {
-    background-color: var(--white);
-    border-radius: 20px;
-    color: var(--black);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 90%;
-    overflow: hidden;
-    position: relative;
-}
-
-.ad-text {
-    position: relative;
-    z-index: 2;
-}
-
-.ad-card h3 {
-    font-family: 'Urbanist', sans-serif;
-    font-size: 31.97px;
-    font-weight: 700;
-    line-height: 1.05;
-    margin-bottom: 10px;
-    margin-top: 0;
-}
-
-.shop-now-btn {
-    font-family: 'Urbanist', sans-serif;
-    background-color: var(--orange);
-    color: var(--black);
-    font-size: 16px;
-    font-weight: 500;
-    padding: 5.33px 9.32px;
-    border: none;
-    border-radius: 28px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-}
-
-.shop-now-btn:hover {
-    background-color: #e07a1c;
-}
-
-.ad-image-container {
-    position: absolute;
-    bottom: -30px;
-    right: -50px;
-    width: 120%;
-    z-index: 1;
-}
-
-.ad-image-container img {
-    width: 100%;
-    object-fit: contain;
-    display: block;
-}
-
-.instagram-handle {
-    font-family: sans-serif;
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    color: #1B1B1B;
-    border-radius: 18px;
-    font-size: 10px;
-    font-weight: 500;
-    z-index: 2;
-    padding: 6px 14px;
-    opacity: 0.7;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.insta-image {
-    height: 12px;
-    width: 12px;
-    opacity: 0.5;
-}
-
-
-/* =================================================================== */
-/*                       RESPONSIVE FOOTER STYLES                      */
-/* =================================================================== */
-
-/* --- Tablet View (1200px and below) --- */
-@media (max-width: 1200px) {
-    .footer-section {
-        grid-template-columns: 1fr 1fr;
-
-    }
-
-    .ad-column {
-        grid-column: 1 / -1; /* Make ad card span both columns */
-        min-height: 400px;
-    }
-}
 
 /* --- Mobile View (768px and below) --- */
 @media (max-width: 768px) {
-    .site-header {
-        padding-top: 1em;
-    }
+    
 
     .slide {
         width: 150px;
@@ -1490,83 +1121,11 @@ img.bw {
         place-items: center;
     }
 
-    .foot-wrapper {
-        padding: 40px 15px;
-        margin-right: 40px;
-        width: 100%;
-        max-width: 384px;
-    }
     
-    .footer-section {
-        grid-template-columns: 1fr; /* Stack all columns */
-        /* padding: 40px 30px; */
-        gap: 40px;
-        width: 100%;
-        max-width: 340px;
-    }
-    
-
-
-    .links-column {
-        border-left: none; /* Remove side border */
-        border-top: 1px solid rgba(255, 255, 255, 0.15); /* Add top border for separation */
-        padding-left: 0;
-        padding-top: 40px;
-    }
-
-    .faq-column h2,
-    .links-column h2 {
-        font-size: 32px;
-    }
-
-    .contact-info p {
-        white-space: normal; /* Allow contact info to wrap */
-        word-break: break-word;
-    }
-
-    .ad-column {
-        min-height: 350px;
-    }
-
-    .ad-card h3 {
-        font-size: 38px;
-    }
-
-    .ad-image-container {
-        top: -60px;
-        left: 30%;
-        width: 70%;
-    }
 }
 
 
-/* --- Small Mobile View (480px and below) --- */
-@media (max-width: 480px) {
-    .footer-section {
-        padding: 30px 20px;
-    }
 
-    .faq-column h2,
-    .links-column h2 {
-        font-size: 28px;
-    }
-    
-    .faq-item p {
-        font-size: 16px;
-    }
-    
-    .main-links a {
-        font-size: 16px;
-    }
-    
-    .ad-card h3 {
-        font-size: 24px;
-    }
-    
-    .ad-image-container {
-        height: 100px;
-    }
-}
 
 
 /* =================================================================== */
@@ -1576,94 +1135,7 @@ img.bw {
 /* =================================================================== */
 /* =================================================================== */
 
-/* --- Mobile Navigation Setup (Hidden on Desktop) --- */
-.mobile-menu-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 24px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    margin-right: 20px;
-    z-index: 1001;
-}
 
-.mobile-menu-toggle span {
-    width: 30px;
-    height: 3px;
-    background-color: var(--white);
-    border-radius: 10px;
-    transition: all 0.3s linear;
-}
-
-.mobile-nav-menu {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: var(--color-nav-bg);
-    z-index: 1000;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-}
-
-.mobile-nav-menu a {
-    color: var(--color-white);
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: 100;
-    padding: 1rem 0;
-    transition: color 0.3s ease;
-}
-
-.mobile-nav-menu a.active {
-    color: var(--pink);
-}
-
-body.mobile-menu-open {
-    overflow: hidden;
-}
-
-body.mobile-menu-open .mobile-menu-toggle span:nth-child(1) {
-    transform: rotate(45deg) translate(7px, 7px);
-}
-body.mobile-menu-open .mobile-menu-toggle span:nth-child(2) {
-    opacity: 0;
-}
-body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
-}
-
-/* ============================================= */
-/*          For Tablets and Below (1024px)       */
-/* ============================================= */
-@media (max-width: 1024px) {
-    /* --- Hide Desktop Nav, Show Mobile Hamburger --- */
-    nav .nav-links,
-    nav > .btn-primary {
-        display: none;
-    }
-
-    .mobile-menu-toggle {
-        display: flex;
-    }
-
-    .logo img {
-        height: 80px;
-        width: 80px;
-    }
-
-    /* Adjust Staggered Images in Brief Section */
-    .image-grid-container img:nth-child(even) {
-        transform: none; /* Remove stagger on tablets as it can look odd */
-    }
-}
 
 
 /* ============================================= */
@@ -1684,7 +1156,7 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
         margin-bottom: 40px;
     }
     .services-section, .work-section, .how-section, .blog-section {
-        padding: 60px 15px;
+        padding: 20px 15px;
     }
 
     /* --- Hero Section - Major Restructure for Mobile --- */
@@ -1847,16 +1319,6 @@ text-overflow: ellipsis; /* Optional: adds "..." when text overflows */
     
 }
 
-
-
-
-
-
-
-
-
-
-
 /* Small Mobile Devices */
 @media (max-width: 480px) {
     .heading-1 {
@@ -1905,32 +1367,9 @@ text-overflow: ellipsis; /* Optional: adds "..." when text overflows */
         font-size: 0.8rem;
     }
     
-    .faq-column h2,
-    .links-column h2 {
-        font-size: 2.1rem;
-    }
+
     
-    .faq-item p {
-        font-size: 0.9rem;
-    }
-    
-    .contact-info p {
-        font-size: 0.8rem;
-    }
-    
-    .main-links a {
-        font-size: 1.2rem;
-    }
-    
-    
-    .ad-image-container {
-        height: 100px;
-    }
-    
-    .shop-now-btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.8rem;
-    }
+
 }
 
 /* Tablet Styles */
@@ -1964,19 +1403,5 @@ text-overflow: ellipsis; /* Optional: adds "..." when text overflows */
         grid-template-columns: repeat(2, 1fr);
     }
     
-    
-    .ad-column {
-        grid-column: span 2;
-    }
 }
 
-/* Ensure mobile menu toggle is hidden on desktop */
-@media (min-width: 769px) {
-    .mobile-menu-toggle {
-        display: none;
-    }
-    
-    .mobile-nav-menu {
-        display: none;
-    }
-}

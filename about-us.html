@@ -7,6 +7,7 @@
     
     <!-- Link to your CSS file -->
     <link rel="stylesheet" href="about-us.css">
+    <link rel="stylesheet" href="header.css">
     
     <!-- Google Fonts Import -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,18 +24,25 @@
     <nav class="main-nav">
         <!-- Logo -->
         <div class="logo">
-            <a href="index.html"> <!-- Make the logo a link to the homepage -->
-                <img src="assets/TSM Full logo.svg" alt="The Social Mafia Logo">
+            <a href="index.html"> <!-- The link wrapper -->
+                <!-- The default, visible logo -->
+                <img class="logo-default" src="assets/Group.svg" alt="The Social Mafia Logo">
+                
+                <!-- The logo that appears on hover -->
+                <img class="logo-hover" src="assets/TSM Full logo.svg" alt="The Social Mafia Logo">
             </a>
         </div>
 
         <!-- Desktop Navigation Links -->
-        <ul class="nav-links">
-            <li><a href="our-work.html">Our work</a></li>
-            <li><a href="careers.html">Careers</a></li>
-            <li><a href="about-us.html" class="active">About us</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
+         <div>
+            <ul class="nav-links">
+                <li><a href="our-work.html">Our work</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="about-us.html">About us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+         </div>
+        
 
         <!-- Desktop Call-to-Action Button -->
         <a href="contact.html" class="btn-primary">Get in touch</a>
@@ -51,9 +59,9 @@
     <div class="mobile-nav-menu">
         <a href="our-work.html">Services</a>
         <a href="careers.html">Careers</a>
-        <a href="about-us.html" class="active">About us</a>
+        <a href="about-us.html">About us</a>
         <a href="contact.html">Contact</a>
-        <!-- <a href="contact.html" class="btn-primary">Get in touch</a> -->
+        <!-- <a href="contact.html" class="btn-primary" class="active">Get in touch</a> -->
     </div>
 </header>
 

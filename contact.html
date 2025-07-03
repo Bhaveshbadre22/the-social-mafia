@@ -11,46 +11,61 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="contact.css">
+  <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="footer.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="contact-page">
+  <div class="footer-blob right-blob"></div>
   <div class="footer-blob contact-blob-1"></div>
   <div class="footer-blob contact-blob-2"></div>
   <div class="contact-page-wrapper">
 
     <!-- Header -->
-    <header>
-      <nav>
+    <header class="site-header">
+    <nav class="main-nav">
+        <!-- Logo -->
         <div class="logo">
-          <a href="index.html">
-            <img src="assets/TSM Full logo.svg" alt="Logo" />
-          </a>
+            <a href="index.html"> <!-- The link wrapper -->
+                <!-- The default, visible logo -->
+                <img class="logo-default" src="assets/Group.svg" alt="The Social Mafia Logo">
+                
+                <!-- The logo that appears on hover -->
+                <img class="logo-hover" src="assets/TSM Full logo.svg" alt="The Social Mafia Logo">
+            </a>
         </div>
-        <ul class="nav-links">
-          <li><a href="our-work.html">Our work</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="about-us.html">About us</a></li>
-          <li><a href="contact.html" class="active">Contact</a></li>
-        </ul>
-        <a href="contact.html" class="btn-primary">Get in touch</a>
+
+        <!-- Desktop Navigation Links -->
+         <div>
+            <ul class="nav-links">
+                <li><a href="our-work.html">Our work</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="about-us.html">About us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+         </div>
         
-        <!-- Mobile Menu Toggle Button -->
+
+        <!-- Desktop Call-to-Action Button -->
+        <a href="contact.html" class="btn-primary">Get in touch</a>
+
+        <!-- Mobile Menu "Hamburger" Toggle Button -->
         <button class="mobile-menu-toggle" aria-label="Open navigation menu">
             <span></span>
             <span></span>
             <span></span>
         </button>
-      </nav>
-      
-      <!-- Mobile Navigation Menu -->
-      <div class="mobile-nav-menu">
-          <a href="our-work.html">Services</a>
-          <a href="#">Careers</a>
-          <a href="about-us.html" class="active">About us</a>
-          <a href="contact.html">Contact</a>
-          <!-- <a href="contact.html" class="btn">Get in touch</a> -->
-      </div>
-    </header>
+    </nav>
+    
+    <!-- Full-Screen Mobile Navigation Menu (Hidden by default) -->
+    <div class="mobile-nav-menu">
+        <a href="our-work.html">Services</a>
+        <a href="careers.html">Careers</a>
+        <a href="about-us.html">About us</a>
+        <a href="contact.html">Contact</a>
+        <!-- <a href="contact.html" class="btn-primary" class="active">Get in touch</a> -->
+    </div>
+</header>
 
     <!-- Page Title -->
     <section class="page-header">
@@ -134,6 +149,8 @@
 
 
     </main>
+  </div>
+
 
 
     <footer class="footer-section">
@@ -240,7 +257,7 @@
         </div>
     </footer>
 
-  </div>
+
 
 
   

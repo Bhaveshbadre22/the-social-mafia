@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Social Mafia</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="footer.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
@@ -24,18 +26,25 @@
     <nav class="main-nav">
         <!-- Logo -->
         <div class="logo">
-            <a href="index.html"> <!-- Make the logo a link to the homepage -->
-                <img src="assets/TSM Full logo.svg" alt="The Social Mafia Logo">
+            <a href="index.html"> <!-- The link wrapper -->
+                <!-- The default, visible logo -->
+                <img class="logo-default" src="assets/Group.svg" alt="The Social Mafia Logo">
+                
+                <!-- The logo that appears on hover -->
+                <img class="logo-hover" src="assets/TSM Full logo.svg" alt="The Social Mafia Logo">
             </a>
         </div>
 
         <!-- Desktop Navigation Links -->
-        <ul class="nav-links">
-            <li><a href="our-work.html">Our work</a></li>
-            <li><a href="careers.html">Careers</a></li>
-            <li><a href="about-us.html">About us</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
+         <div>
+            <ul class="nav-links">
+                <li><a href="our-work.html">Our work</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="about-us.html">About us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+         </div>
+        
 
         <!-- Desktop Call-to-Action Button -->
         <a href="contact.html" class="btn-primary">Get in touch</a>
@@ -140,56 +149,7 @@
     </div>
 </div>
 
-            <!-- Main Heading -->
-            <h2 class="section-heading">What our clients say</h2>
-
-            <!-- Testimonial Cards Container -->
-            <div class="cards-container">
-                <!-- Card 1 -->
-                <div class="testimonial-card">
-        <img src="https://images.pexels.com/photos/3771045/pexels-photo-3771045.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Portrait of Kshitija Whaval">
-        <div class="card-content-overlay">
-            <div class="card-header">
-                <h3 class="card-title">Kshitija Whaval</h3>
-                <!-- The class for the tag has been updated to be more generic -->
-                <span class="card-tag tag-pink">Leifii Co</span>
-            </div>
-            <p class="card-text">
-                "We let TSM handle Digital Marketing for our clients and it has been great. We get good results and the team is very co-operative."
-            </p>
-        </div>
-    </div>
-
-                <!-- Card 2 -->
-                <div class="testimonial-card">
-                    <img class="bw" src="https://images.pexels.com/photos/3778603/pexels-photo-3778603.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Portrait of Tejas Dugad">
-                    <div class="card-content-overlay">
-                        <div class="card-header">
-                            <h3 class="card-title">Tejas Dugad</h3>
-                            <span class="card-tag tag-pink">PSA</span>
-                        </div>
-                        <p class="card-text">
-                            "We let TSM handle Digital Marketing for our clients and it has been great. We get good results and the team is very co-operative."
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="testimonial-card">
-                    <img class="bw" src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Portrait of Swapnil Shah">
-                    <div class="card-content-overlay">
-                        <div class="card-header">
-                            <h3 class="card-title">Swapnil Shah</h3>
-                            <span class="card-tag tag-pink">Englobin</span>
-                        </div>
-                        <p class="card-text">
-                            "We let TSM handle Digital Marketing for our clients and it has been great. We get good results and the team is very co-operative."
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+            
 
     
 
@@ -322,54 +282,59 @@
         <a href="#" class="view-all-btn">View all</a>
     </section>
 
-    <!-- How We Do It Section -->
-    <section class="how-section">
-  <h2 class="section-heading">How we do it</h2>
-  <p class="section-subheading">
-    We don't just create content, we build content engines that scale your brand with authenticity and speed.
-  </p>
+<section class="how-section">
+    <h2 class="section-heading">How we do it</h2>
+    <p class="section-subheading">
+        We don't just create content, we build content engines that scale your brand with authenticity and speed.
+    </p>
 
-  <div class="how-cards">
-    <!-- Card 1 -->
-    <div class="how-card-wrapper">
-        <span class="how-step">1</span>
-      <div class="how-card">
-        <img class="card-vector-1" src="assets/Vector 52.svg" alt="Decorative vector" />
-        <h3 class="how-title">Strategy Meets Scale</h3>
-        <p class="how-text">
-          We don’t just send you content we engineer a brand moment. 100 creators, handpicked and briefed, all working together to make your product unforgettable across feeds, screens, and minds.
-        </p>
-        <img class="card-vector-2" src="assets/Vector 51.svg" alt="Decorative vector" />
-      </div>
+    <!-- This container will be a grid on desktop and a carousel viewport on mobile -->
+    <div class="how-carousel-container">
+        <!-- This track will be a simple flex container on desktop and a sliding track on mobile -->
+        <div class="how-carousel-track">
+            <!-- Card 1 -->
+            <div class="how-card-wrapper">
+                <span class="how-step">1</span>
+                <div class="how-card">
+                    <img class="card-vector-1" src="assets/Vector 52.svg" alt="Decorative vector" />
+                    <h3 class="how-title">Strategy Meets Scale</h3>
+                    <p class="how-text">
+                        We don’t just send you content we engineer a brand moment. 100 creators, handpicked and briefed, all working together to make your product unforgettable across feeds, screens, and minds.
+                    </p>
+                    <img class="card-vector-2" src="assets/Vector 51.svg" alt="Decorative vector" />
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="how-card-wrapper">
+                <span class="how-step">2</span>
+                <div class="how-card">
+                    <img class="card-vector-1" src="assets/Vector 52.svg" alt="Decorative vector" />
+                    <h3 class="how-title">100 Content Creators</h3>
+                    <p class="how-text">
+                        Imagine briefing once and unlocking an army of storytellers who turn your message into 100 powerful UGC videos. No middle layers. No creator roulette. Just pure output.
+                    </p>
+                    <img class="card-vector-2" src="assets/Vector 51.svg" alt="Decorative vector" />
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="how-card-wrapper">
+                <span class="how-step">3</span>
+                <div class="how-card">
+                    <img class="card-vector-1" src="assets/Vector 52.svg" alt="Decorative vector" />
+                    <h3 class="how-title">Professional & Trust-Building</h3>
+                    <p class="how-text">
+                        Our exclusive network of vetted creators covers diverse niches, regions, languages, and content styles, giving your brand the flexibility and reach it needs to scale your brand.
+                    </p>
+                    <img class="card-vector-2" src="assets/Vector 51.svg" alt="Decorative vector" />
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Card 2 -->
-    <div class="how-card-wrapper">
-        <span class="how-step">2</span>
-      <div class="how-card">
-        <img class="card-vector-1" src="assets/Vector 52.svg" alt="Decorative vector" />
-        <h3 class="how-title">100 Content Creators</h3>
-        <p class="how-text">
-          Imagine briefing once and unlocking an army of storytellers who turn your message into 100 powerful UGC videos. No middle layers. No creator roulette. Just pure output.
-          
-        </p>
-        <img class="card-vector-2" src="assets/Vector 51.svg" alt="Decorative vector" />
-      </div>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="how-card-wrapper">
-        <span class="how-step">3</span>
-      <div class="how-card">
-        <img class="card-vector-1" src="assets/Vector 52.svg" alt="Decorative vector" />
-        <h3 class="how-title">Professional &amp; Trust-Building</h3>
-        <p class="how-text">
-          Our exclusive network of vetted creators covers diverse niches, regions, languages, and content styles, giving your brand the flexibility and reach it needs to scale your brand.
-        </p>
-        <img class="card-vector-2" src="assets/Vector 51.svg" alt="Decorative vector" />
-      </div>
-    </div>
-  </div>
+    <!-- Pagination dots will only be visible on mobile -->
+    <div class="carousel-dots"></div>
 </section>
 
     <!-- Blogs Section -->
@@ -401,6 +366,59 @@
 
         <a href="#" class="see-all-btn">See all blogs</a>
     </section>
+
+
+
+    <!-- Main Heading -->
+            <h2 class="section-heading">What our clients say</h2>
+
+            <!-- Testimonial Cards Container -->
+            <div class="cards-container">
+                <!-- Card 1 -->
+                <div class="testimonial-card">
+        <img src="https://images.pexels.com/photos/3771045/pexels-photo-3771045.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Portrait of Kshitija Whaval">
+        <div class="card-content-overlay">
+            <div class="card-header">
+                <h3 class="card-title">Kshitija Whaval</h3>
+                <!-- The class for the tag has been updated to be more generic -->
+                <span class="card-tag tag-pink">Leifii Co</span>
+            </div>
+            <p class="card-text">
+                "We let TSM handle Digital Marketing for our clients and it has been great. We get good results and the team is very co-operative."
+            </p>
+        </div>
+    </div>
+
+                <!-- Card 2 -->
+                <div class="testimonial-card">
+                    <img class="bw" src="https://images.pexels.com/photos/3778603/pexels-photo-3778603.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Portrait of Tejas Dugad">
+                    <div class="card-content-overlay">
+                        <div class="card-header">
+                            <h3 class="card-title">Tejas Dugad</h3>
+                            <span class="card-tag tag-pink">PSA</span>
+                        </div>
+                        <p class="card-text">
+                            "We let TSM handle Digital Marketing for our clients and it has been great. We get good results and the team is very co-operative."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="testimonial-card">
+                    <img class="bw" src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Portrait of Swapnil Shah">
+                    <div class="card-content-overlay">
+                        <div class="card-header">
+                            <h3 class="card-title">Swapnil Shah</h3>
+                            <span class="card-tag tag-pink">Englobin</span>
+                        </div>
+                        <p class="card-text">
+                            "We let TSM handle Digital Marketing for our clients and it has been great. We get good results and the team is very co-operative."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
 
     <div class="foot-wrapper">

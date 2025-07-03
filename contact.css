@@ -5,7 +5,9 @@
 :root {
     --color-yellow: #FFC402;
     --color-orange: #FB8A2C;
+    --yellow: #FFC402;
     --color-pink: #F20C89;
+    --pink: #F20C89;
     --color-white: #FFFFFF;
     --color-light-gray: #d1d1d1;
     --color-medium-gray: #888888;
@@ -17,19 +19,57 @@
     --font-secondary: 'Manrope', sans-serif;
     --color-nav-bg: #232323;
     --gradient: linear-gradient(90deg, var(--color-yellow) 0%, var(--color-pink) 100%);
+    --bg-color: #1c1c1c;
+    --nav-bg-color: #2f2f2f;
+    --text-color-light: #FFFFFF;
+    --accent-color: #FB8A2C;
+    --callout-bg: #e6d5c6;
+    --callout-text: #3a3a3a;
+    --font-family: 'Poppins';
+    --color-yellow: #FFC402;
+    --color-pink: #F20C89;
+    --color-white: #FFFFFF;
+    --color-nav-bg: #232323;
+    --color-body-bg: #1B1B1B;
+    --gradient: linear-gradient(90deg, var(--color-yellow) 0%, var(--color-pink) 100%);
+    --color-yellow: #FFC402;
+    --color-orange: #FB8A2C;
+    --color-pink: #F20C89;
+    --color-white: #FFFFFF;
+    --color-light-gray: #d1d1d1;
+    --color-medium-gray: #888888;
+    --color-dark-gray: #1E1E1E;
+    --color-border-gray: #3a3a3a;
+    --color-bg-black: #0E0E0E;
+    --gradient-primary: linear-gradient(90deg, var(--color-yellow) 0%, var(--color-pink) 100%);
+    --font-primary: 'Poppins', sans-serif;
+    --font-secondary: 'Manrope', sans-serif;
+    --color-yellow: #FFC402;
+    --color-pink: #F20C89;
+    --color-white: #FFFFFF;
+    --color-nav-bg: #232323;
+    --color-body-bg: #1B1B1B;
+    --gradient: linear-gradient(90deg, var(--color-yellow) 0%, var(--color-pink) 100%);
+    --yellow: #FFC402;
+    --orange: #FB8A2C;
+    --pink: #F20C89;
+    --white: #FFFFFF;
+    --dark-gray: #232323;
+    --black: #1B1B1B;
+    --gradient: linear-gradient(90deg, var(--yellow), var(--pink));
 }
 
 body.contact-page {
+    position: relative;
     background-color: #0e0e0e;
     color: var(--color-white);
     font-family: var(--font-secondary);
     margin: 0;
-    display: flex;
-    justify-content: center;
     min-height: 100vh;
     box-sizing: border-box;
     overflow-x: hidden; /* Prevent horizontal scroll from blobs */
     position: relative;
+    padding-bottom: 60px;
 }
 
 .footer-blob {
@@ -62,6 +102,7 @@ body.contact-page {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    justify-self: center;
     width: 100%;
     max-width: 1300px;
     display: flex;
@@ -72,85 +113,6 @@ body.contact-page {
     margin-bottom: 100px;
     padding: 0 2rem;
 }
-
-header {
-    width: 100%;
-    padding-top: 2.5rem;
-    display: flex;
-    justify-content: center;
-}
-
-nav {
-    width: 100%;
-    max-width: 1023px;
-    height: 70px;
-    padding: 0 1rem;
-    background-color: var(--color-nav-bg);
-    border-radius: 50px;
-
-    display: flex;
-    justify-content: space-between; /* center all items */
-    align-items: center;
-    gap: 2rem; /* spacing between logo, links, and button */
-    flex-wrap: wrap; /* allow wrapping on smaller screens */
-}
-
-.logo img {
-    height: 70px;
-    width: auto;
-    display: block;
-}
-
-/* Make sure logo is vertically aligned */
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2.5rem;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--color-white);
-    font-size: 1rem;
-    padding: 0.5rem 0;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-    color: var(--color-pink);
-    font-weight: 600;
-}
-
-.btn-primary {
-    background: var(--gradient);
-    color: var(--color-white);
-    text-decoration: none;
-    padding: 0.8rem 1.8rem;
-    border-radius: 28px;
-    font-weight: 600;
-    font-size: 1rem;
-    white-space: nowrap;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-.mobile-nav-menu a{
-    background-color: var(--color-nav-bg);
-}
-
-.btn-primary:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(242, 12, 137, 0.3); }
 
 .page-header {
     text-align: center;
@@ -522,410 +484,3 @@ body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
     }
 }
 
-/* =================================================================== */
-/*               1. Main Footer Layout (Desktop)                       */
-/* =================================================================== */
-
-.foot-wrapper {
-    position: relative;
-    background: #0E0E0E;  
-    padding: 60px 20px;
-    overflow: visible; /* Changed from visible to contain blobs properly */
-}
-
-.footer-section {
-    position: relative;
-    max-width: 1280px;
-    width: 100%;
-    margin: 0 auto;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-radius: 25px;
-    padding: 60px;
-    display: grid;
-    grid-template-columns: 1.5fr 1.5fr 1.5fr;
-    gap: 80px;
-    z-index: 2;
-    overflow: hidden;
-    left: -58px;
-    margin-top: 90px;
-}
-
-.footer-blob {
-    position: absolute;
-    width: 350px;
-    height: 350px;
-    
-    border-radius: 50%;
-    filter: blur(140px);
-    z-index: 0;
-}
-
-
-
-
-
-/* =================================================================== */
-/*               2. Footer Content Styling (Desktop)                   */
-/* =================================================================== */
-
-/* --- 2. Column 1: FAQ --- */
-
-.faq-column h2 {
-    font-size: 40px;
-    font-weight: 500;
-    color: var(--color-pink);
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 1;
-    font-family: 'Manrope';
-    line-height: 100%;
-    letter-spacing: 0%;
-    padding-left: 10px;
-}
-
-/* MODIFIED: The .faq-item is now just a container. */
-.faq-item {
-    margin: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    overflow: hidden; /* Important: keeps content from spilling out during animation */
-}
-
-/* NEW: This div now holds your flex properties. */
-.faq-question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 0; /* Your vertical padding */
-    cursor: pointer;
-}
-
-/* MODIFIED: Selector changed from .faq-item p */
-.faq-question p {
-    font-size: 18px;
-    font-weight: 300;
-    padding-right: 20px;
-    color: var(--white);
-    margin: 0;
-    padding-left: 10px; /* Matched your h2 padding */
-}
-
-/* MODIFIED: Selector changed from .faq-item i */
-.faq-question i {
-    font-size: 18px;
-    color: var(--white);
-    flex-shrink: 0; /* Keeps icon from squishing */
-    padding-right: 10px; /* Added padding for spacing */
-    transition: transform 0.3s ease; /* Animate the icon rotation */
-}
-
-/* --- NEW CSS FOR THE FUNCTIONALITY --- */
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease-out;
-}
-
-.faq-answer p {
-    font-family: 'Manrope';
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.85); /* Slightly dimmer for contrast */
-    margin: 0;
-    padding: 5px 10px 25px 10px; /* Top, Right, Bottom, Left */
-}
-
-/* --- Active State (When FAQ is open) --- */
-
-/* When .faq-item has class 'active', the answer becomes visible */
-.faq-item.active .faq-answer {
-    max-height: 300px; /* Adjust if your answers are very long */
-}
-
-/* Rotate the icon when the FAQ is open */
-.faq-item.active .faq-question i {
-    transform: rotate(180deg);
-}
-
-/* Optional: Make the bottom border bolder when open */
-.faq-item.active {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* --- Column 2: Collaborate & Links --- */
-.links-column {
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
-    padding-left: 40px;
-    position: relative;
-    z-index: 1;
-}
-
-.links-column h2 {
-    font-size: 40px;
-    font-weight: 500;
-    color: #FFC402; /* var(--yellow) */
-    margin-bottom: 30px;
-    white-space: nowrap; 
-    overflow: hidden;     
-    text-overflow: ellipsis; 
-}
-
-.contact-info, .main-links, .socials {
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    padding-bottom: 30px;
-}
-
-.socials {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.contact-heading {
-  color: #FFC402; /* var(--yellow) */
-  font-weight: 500;
-  margin-bottom: 6px;
-}
-
-.contact-info p {
-    font-size: 12px;
-    font-weight: 300;
-    color: #FFFFFF; /* var(--white) */
-    text-decoration: none;
-    display: block;
-    line-height: 1.6;
-    margin-bottom: 6px;
-}
-
-.main-links a {
-    font-size: 18px;
-    font-weight: 500;
-    color: #BE9203; /* A darker yellow for non-hover state */
-    text-decoration: none;
-    display: block;
-    line-height: 1.6;
-    margin-bottom: 12px;
-    transition: color 0.3s ease;
-}
-
-.main-links a:hover {
-    color: #FFC402; /* var(--yellow) */
-}
-
-.socials h3 {
-    font-size: 18px;
-    font-weight: 500;
-    color: #BE9203;
-    margin-bottom: 10px;
-}
-
-.social-icons {
-    display: flex;
-    gap: 10px;
-}
-
-.social-icons a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    transition: transform 0.3s ease;
-}
-
-.social-icons a img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.social-icons a:hover {
-    transform: scale(1.1);
-}
-
-/* --- Column 3: Ad Card --- */
-.ad-card {
-    background-color: #FFFFFF; /* var(--white) */
-    border-radius: 20px;
-    color: #1B1B1B; /* var(--black) */
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-}
-
-.ad-text {
-    position: relative;
-    z-index: 2;
-}
-
-.ad-card h3 {
-    font-family: 'Urbanist', sans-serif;
-    font-size: 31.97px;
-    font-weight: 700;
-    line-height: 1.05;
-    margin-bottom: 20px;
-
-}
-
-.shop-now-btn {
-    font-family: 'Urbanist', sans-serif;
-    background-color: #FB8A2C; /* var(--orange) */
-    color: #1B1B1B; /* var(--black) */
-    font-size: 16px;
-    font-weight: 500;
-    padding: 5.33px 9.32px;
-    border: none;
-    border-radius: 28px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-}
-
-.shop-now-btn:hover {
-    background-color: #e07a1c;
-}
-
-.ad-image-container {
-    position: absolute;
-    bottom: -30px;
-    right: -50px;
-    width: 120%;
-    z-index: 1;
-}
-
-.ad-image-container img {
-    width: 100%;
-    object-fit:contain ;
-    display: block;
-}
-
-.instagram-handle {
-    font-family: sans-serif;
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    color: #1B1B1B;
-    border-radius: 18px;
-    font-size: 10px;
-    font-weight: 500;
-    z-index: 2;
-    padding: 6px 14px;
-    opacity: 0.7;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.insta-image {
-    height: 12px;
-    width: 12px;
-    opacity: 0.5;
-}
-
-
-/* =================================================================== */
-/*            3. Responsive Footer Styles (Consolidated)               */
-/* =================================================================== */
-
-/* --- Large Tablet View (1200px and below) --- */
-@media (max-width: 1200px) {
-    .footer-section {
-        grid-template-columns: 1fr 1fr;
-    }
-    .ad-column {
-        grid-column: 1 / -1; /* Make ad span full width */
-        min-height: 400px;
-    }
-}
-
-/* --- Tablet View (1024px and below) --- */
-@media (max-width: 1024px) {
-    /* No specific changes here for the footer, but it's a common breakpoint to keep */
-}
-
-/* --- Mobile Phone View (768px and below) --- */
-@media (max-width: 768px) {
-    .foot-wrapper {
-        padding: 40px 15px;
-    }
-    .footer-section {
-        grid-template-columns: 1fr; /* Stack all columns */
-        padding: 40px 20px;
-        gap: 40px;
-        left: 0px;
-        max-width: 350px;
-        width: 100%;
-        margin-top: 10px;
-    }
-    .links-column {
-        border-left: none;
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
-        padding-left: 0;
-        padding-top: 40px;
-    }
-    .faq-column h2,
-    .links-column h2 {
-        font-size: 32px;
-        text-align: center;
-    }
-    .contact-info p {
-        white-space: normal;
-        word-break: break-word;
-    }
-    .ad-column {
-        min-height: 350px;
-    }
-    .ad-card {
-        padding: 1.5rem;
-        max-width: 350px;
-        margin: 0 auto;
-    }
-    .ad-card h3 {
-        font-size: 28px;
-        margin: 0 0 10px;
-        border-radius: 28px;
-    }
-    .ad-image-container {
-        top: 0px;
-        left: 30%;
-        width: 70%;
-    }
-    .socials {
-        text-align: center;
-    }
-    .social-icons {
-        justify-content: center;
-    }
-}
-
-/* --- Small Mobile View (480px and below) --- */
-@media (max-width: 480px) {
-    .footer-section {
-        padding: 30px 15px;
-    }
-    .faq-column h2,
-    .links-column h2 {
-        font-size: 28px;
-    }
-    .faq-item p,
-    .main-links a {
-        font-size: 16px;
-    }
-    .contact-info p {
-        font-size: 14px;
-    }
-    .shop-now-btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 14px;
-    }
-}

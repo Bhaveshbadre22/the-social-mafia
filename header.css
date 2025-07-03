@@ -1,0 +1,322 @@
+/* --- Header and Navigation --- */
+/* ================================================== */
+/*        MASTER RESPONSIVE HEADER - CSS STYLES       */
+/* ================================================== */
+
+/* --- 1. Desktop Header Styles (Default View) --- */
+.site-header {
+    justify-self: center;
+    width: 100%;
+    /* padding: 2.5rem 2rem 0; */
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative; /* Needed for z-index context */
+    z-index: 100; /* Ensures header is above other page content */
+
+    padding: 2rem 1rem 0 1rem;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between; /* center all items */
+    align-items: center;
+    gap: 1rem; /* spacing between logo, links, and button */
+    flex-wrap: wrap; /* allow wrapping on smaller screens */
+    width: 100%;
+    max-width: 1023px;
+    height: 60px;
+    padding: 0 0.7rem 0 0.5rem;
+    background-color: #232323; /* from --color-nav-bg */
+    border-radius: 50px;
+}
+
+/* --- Logo Hover Functionality --- */
+
+/* 1. Set up the link as a positioning container */
+.main-nav .logo a {
+    display: inline-block; /* Give the link element dimensions */
+    position: relative;    /* This is the new anchor for the absolute images */
+    /* Ensure the container has the correct size for the absolute images inside it */
+    width: 40px;
+    height: 40px;
+}
+
+/* 2. Apply your original styles to BOTH images to make them stack perfectly */
+.main-nav .logo img {
+    /* Your original positioning styles */
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: 4px;
+    transform: translateY(-2px);
+    
+    /* New additions */
+    left: 0; /* Be explicit about horizontal position */
+    transition: opacity 0.4s ease-in-out; /* Smooth fade effect */
+}
+
+/* 3. Hide the hover-logo by default */
+.main-nav .logo .logo-hover {
+    opacity: 0;
+}
+
+/* 4. On hover, fade out the default logo and fade in the hover logo */
+.main-nav .logo a:hover .logo-default {
+    opacity: 0;
+}
+
+.main-nav .logo a:hover .logo-hover {
+    opacity: 1;
+    width: 95px;
+    height: 95px;
+    top: -21px;
+    left: -4px;
+}
+
+.main-nav .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav .nav-links a {
+    text-decoration: none;
+    color: #FFFFFF; /* from --color-white */
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+}
+
+.main-nav .nav-links a:hover,
+.main-nav .nav-links a.active {
+    color: #F20C89; /* from --color-pink */
+    font-weight: 600;
+}
+
+.main-nav .btn-primary {
+    background: linear-gradient(90deg, #FFC402, #F20C89); /* from --gradient */
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0.6rem 1.6rem;
+    border-radius: 28px;
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    white-space: nowrap;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.main-nav .btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(242, 12, 137, 0.3);
+}
+
+/* --- 2. Mobile Menu Styles (Hidden on Desktop) --- */
+
+/* The hamburger button itself */
+.mobile-menu-toggle {
+    display: none; /* Crucial: hidden on desktop */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001; /* Must be on top of the mobile menu */
+}
+
+.mobile-menu-toggle span {
+    width: 30px;
+    height: 3px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* The full-screen menu overlay */
+.mobile-nav-menu {
+    display: none; /* Crucial: hidden on desktop */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0e0e0e;
+    z-index: 1000;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.mobile-nav-menu a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+.mobile-nav-menu a.active {
+    color: #F20C89;
+}
+
+.mobile-nav-menu .btn {
+    background-color: #232323;
+    margin-top: 1rem;
+    transform: scale(1.2); /* Make button slightly larger in the menu */
+}
+
+/* Class added by JavaScript when the menu is open */
+body.mobile-menu-open {
+    overflow: hidden; /* Prevents scrolling the page behind the menu */
+}
+
+/* Animation for hamburger -> 'X' */
+body.mobile-menu-open .mobile-menu-toggle span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+body.mobile-menu-open .mobile-menu-toggle span:nth-child(2) {
+    opacity: 0;
+}
+body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+
+/* --- Mobile Navigation Setup (Hidden on Desktop) --- */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin-right: 20px;
+    z-index: 1001;
+}
+
+.mobile-menu-toggle span {
+    width: 30px;
+    height: 3px;
+    background-color: var(--white);
+    border-radius: 10px;
+    transition: all 0.3s linear;
+}
+
+.mobile-nav-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-nav-bg);
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.mobile-nav-menu a {
+    color: var(--color-white);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 100;
+    padding: 1rem 0;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-menu a.active {
+    color: var(--pink);
+}
+
+body.mobile-menu-open {
+    overflow: hidden;
+}
+
+body.mobile-menu-open .mobile-menu-toggle span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+body.mobile-menu-open .mobile-menu-toggle span:nth-child(2) {
+    opacity: 0;
+}
+body.mobile-menu-open .mobile-menu-toggle span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* ============================================= */
+/*          For Tablets and Below (1024px)       */
+/* ============================================= */
+@media (max-width: 1024px) {
+    /* --- Hide Desktop Nav, Show Mobile Hamburger --- */
+    nav .nav-links,
+    nav > .btn-primary {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .logo img {
+        height: 80px;
+        width: 80px;
+    }
+
+    /* Adjust Staggered Images in Brief Section */
+    .image-grid-container img:nth-child(even) {
+        transform: none; /* Remove stagger on tablets as it can look odd */
+    }
+}
+
+
+/* --- 3. Responsive Media Query --- */
+@media (max-width: 1024px) {
+    /* Hide desktop elements */
+    .main-nav .nav-links,
+    .main-nav > .btn-primary {
+        display: none;
+    }
+
+    .main-nav .logo img {
+        /* top: 8px; */
+    }
+
+    /* Show mobile hamburger */
+    .mobile-menu-toggle {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-header {
+        padding-top: 1em;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+}
+
+/* Ensure mobile menu toggle is hidden on desktop */
+@media (min-width: 769px) {
+    .mobile-menu-toggle {
+        display: none;
+    }
+    
+    .mobile-nav-menu {
+        display: none;
+    }
+}

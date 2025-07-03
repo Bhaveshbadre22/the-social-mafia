@@ -131,7 +131,318 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Define the screen size to check for
+    const mobileMediaQuery = window.matchMedia('(max-width: 768px)');
+    
+    let carouselInitialized = false; // Flag to check if carousel is active
 
+    function initializeCarousel() {
+        if (carouselInitialized) return; // Prevent re-initializing
+
+        const track = document.querySelector('.how-carousel-track');
+        const slides = Array.from(track.children);
+        const dotsNav = document.querySelector('.carousel-dots');
+        
+        if (!track || slides.length === 0) return;
+
+        // Clear any previous dots
+        dotsNav.innerHTML = '';
+        
+        let currentIndex = 0;
+
+        // --- Create Pagination Dots ---
+        slides.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.classList.add('carousel-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsNav.appendChild(dot);
+        });
+        const dots = Array.from(dotsNav.children);
+
+        // --- Core Functions ---
+        const goToSlide = (index) => {
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            const newIndex = (index + slides.length) % slides.length;
+            track.style.transform = `translateX(-${slideWidth * newIndex}px)`;
+            
+            dots[currentIndex].classList.remove('active');
+            dots[newIndex].classList.add('active');
+            currentIndex = newIndex;
+        };
+
+        // --- Swipe Functionality ---
+        let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0;
+        const swipeThreshold = 50; 
+
+        const touchStart = (e) => {
+            isDragging = true;
+            startPos = getPositionX(e);
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            prevTranslate = -currentIndex * slideWidth;
+            track.style.transition = 'none';
+        };
+
+        const touchMove = (e) => {
+            if (!isDragging) return;
+            const currentPosition = getPositionX(e);
+            currentTranslate = prevTranslate + (currentPosition - startPos);
+            track.style.transform = `translateX(${currentTranslate}px)`;
+        };
+
+        const touchEnd = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            track.style.transition = 'transform 0.5s ease-in-out';
+            const movedBy = currentTranslate - prevTranslate;
+
+            if (movedBy < -swipeThreshold) goToSlide(currentIndex + 1);
+            else if (movedBy > swipeThreshold) goToSlide(currentIndex - 1);
+            else goToSlide(currentIndex); // Snap back
+        };
+
+        const getPositionX = (e) => e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        
+        // Add swipe event listeners
+        track.addEventListener('mousedown', touchStart);
+        track.addEventListener('touchstart', touchStart, { passive: true });
+        track.addEventListener('mousemove', touchMove);
+        track.addEventListener('touchmove', touchMove, { passive: true });
+        track.addEventListener('mouseup', touchEnd);
+        track.addEventListener('mouseleave', () => { if (isDragging) touchEnd(); });
+        track.addEventListener('touchend', touchEnd);
+
+        carouselInitialized = true;
+    }
+
+    function destroyCarousel() {
+        if (!carouselInitialized) return;
+        
+        const track = document.querySelector('.how-carousel-track');
+        const dotsNav = document.querySelector('.carousel-dots');
+
+        track.style.transform = '';
+        dotsNav.innerHTML = '';
+
+        // You would remove event listeners in a more complex setup, but this is fine for now
+        carouselInitialized = false;
+    }
+
+    // --- Media Query Handler ---
+    function handleScreenChange(e) {
+        if (e.matches) {
+            // Screen is mobile: initialize the carousel
+            initializeCarousel();
+        } else {
+            // Screen is desktop: destroy the carousel
+            destroyCarousel();
+        }
+    }
+
+    // Add a listener for screen size changes and check on load
+    mobileMediaQuery.addEventListener('change', handleScreenChange);
+    handleScreenChange(mobileMediaQuery);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- MOBILE & TABLET SCROLL ANIMATION FOR "OUR WORK" CARDS ---
+    
+    // MODIFIED: Check if we are on a mobile OR tablet device
+    if (window.matchMedia("(max-width: 1024px)").matches) { // Changed from 768px
+        
+        const workCards = document.querySelectorAll('.work-card');
+
+        // Set up the Intersection Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1 
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('card-hidden');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Add the initial hidden state and start observing each card
+        workCards.forEach((card, index) => {
+            card.classList.add('card-hidden');
+            card.style.transitionDelay = `${index * 100}ms`; // Staggered delay
+            observer.observe(card);
+        });
+
+    } // End of mobile/tablet block
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- (Your existing "Our Work" animation code stays here) ---
+
+
+    // --- NEW: MOBILE & TABLET SCROLL ANIMATION FOR "SERVICES" CARDS ---
+
+    if (window.matchMedia("(max-width: 1024px)").matches) {
+
+        const serviceCards = document.querySelectorAll('.service-card');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const serviceObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Use a different class name to avoid conflicts
+                    entry.target.classList.remove('service-card-hidden');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        serviceCards.forEach((card, index) => {
+            // Use the new class name here as well
+            card.classList.add('service-card-hidden');
+            card.style.transitionDelay = `${index * 100}ms`; // Staggered delay
+            serviceObserver.observe(card);
+        });
+
+    } // End of services mobile/tablet block
+    
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- (Your existing "Our Work" and "Services" animation code stays here) ---
+
+
+    // --- NEW: MOBILE & TABLET SCROLL ANIMATION FOR "BLOGS" SECTION ---
+
+    if (window.matchMedia("(max-width: 1024px)").matches) {
+
+        const blogCards = document.querySelectorAll('.blog-card');
+        const blogButton = document.querySelector('.blog-section .see-all-btn');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const blogObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Check which type of element it is and remove the correct class
+                    if (entry.target.classList.contains('see-all-btn')) {
+                        entry.target.classList.remove('blog-btn-hidden');
+                    } else {
+                        entry.target.classList.remove('blog-card-hidden');
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Animate the blog cards
+        blogCards.forEach((card, index) => {
+            card.classList.add('blog-card-hidden');
+            card.style.transitionDelay = `${index * 100}ms`; // Staggered delay
+            blogObserver.observe(card);
+        });
+
+        // Animate the button after the cards
+        if (blogButton) {
+            blogButton.classList.add('blog-btn-hidden');
+            // Set a delay so it appears after the last card
+            blogButton.style.transitionDelay = `${blogCards.length * 100}ms`;
+            blogObserver.observe(blogButton);
+        }
+
+    } // End of blogs mobile/tablet block
+    
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- (Your existing animation code for other sections can stay here) ---
+
+
+    // --- NEW: ANIMATIONS FOR "TESTIMONIALS" SECTION ---
+
+    // --- 1. DESKTOP 3D TILT EFFECT ---
+    if (window.matchMedia("(min-width: 1025px)").matches) {
+        
+        const cards = document.querySelectorAll('.testimonial-card');
+
+        cards.forEach(card => {
+            // UPDATED: A smaller value makes the tilt more subtle.
+            const maxTilt = 4; // Max tilt in degrees
+
+            // This prevents the card from having a transition on the tilt itself,
+            // making it respond instantly to mouse movement. The reset is still transitioned.
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'none';
+            });
+            
+            card.addEventListener('mousemove', (e) => {
+                const cardRect = card.getBoundingClientRect();
+                const x = e.clientX - cardRect.left;
+                const y = e.clientY - cardRect.top;
+
+                const midCardWidth = cardRect.width / 2;
+                const midCardHeight = cardRect.height / 2;
+
+                const tiltY = (x - midCardWidth) / midCardWidth * maxTilt;
+                const tiltX = (midCardHeight - y) / midCardHeight * maxTilt;
+
+                card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+                card.classList.add('is-tilting');
+            });
+
+            card.addEventListener('mouseleave', () => {
+                // Re-apply the transition for a smooth reset
+                card.style.transition = 'transform 0.3s ease-out';
+                card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+                card.classList.remove('is-tilting');
+            });
+        });
+    }
+
+    // --- 2. MOBILE & TABLET SCROLL-IN EFFECT ---
+    if (window.matchMedia("(max-width: 1024px)").matches) {
+        
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const testimonialObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('testimonial-card-hidden');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        testimonialCards.forEach((card, index) => {
+            card.classList.add('testimonial-card-hidden');
+            card.style.transitionDelay = `${index * 100}ms`; // Staggered delay
+            testimonialObserver.observe(card);
+        });
+    }
+});
 
 // ===================================================================
 //   Your commented-out code is preserved below for future use.
